@@ -1,0 +1,20 @@
+LF_shift                Shifted Likelihood Factor
+Param_MSM_linear        Parameter for Linear Working Marginal
+                        Structural Model
+shift_additive          Additive Shifts of Continuous-Valued
+                        Interventions Without Bounds
+tmle3_Spec_shift        Defines a TML Estimator for the Outcome under a
+                        Shifted Treatment
+tmle3_Spec_vimshift_delta
+                        Defines a TML Estimator for Variable Importance
+                        for Continuous Interventions
+tmle3_Spec_vimshift_msm
+                        Defines a TML Estimator for Variable Importance
+                        for Continuous Interventions
+tmle_shift              Outcome under Shifted Treatment
+tmle_vimshift_delta     Outcome Under a Grid of Shifted Interventions
+                        via Delta Method
+tmle_vimshift_msm       Outcome Under a Grid of Shifted Interventions
+                        via Targeted Working MSM
+trend_msm               Test for a trend in the effect of shift
+                        interventions via working MSM

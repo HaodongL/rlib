@@ -1,0 +1,25 @@
+.default.formatter      Default formatter, coorisponding to the
+                        as.output functions
+as.output               Character Output
+chunk                   Functions for very fast chunk-wise processing
+chunk.apply             Process input by applying a function to each
+                        chunk
+chunk.map               Map a function over a file by chunks
+ctapply                 Fast tapply() replacement functions
+dstrfw                  Split fixed width input into a dataframe
+dstrsplit               Split binary or character input into a
+                        dataframe
+fdrbind                 Fast row-binding of lists and data frames
+idstrsplit              Create an iterator for splitting binary or
+                        character input into a dataframe
+imstrsplit              Create an iterator for splitting binary or
+                        character input into a matrix
+input.file              Load a file on the disk
+line.merge              Merge multiple sources
+mstrsplit               Split binary or character input into a matrix
+output.file             Write an R object to a file as a character
+                        string
+read.csv.raw            Fast data frame input
+readAsRaw               Read binary data in as raw
+which.min.key           Determine the next key in bytewise order
+write.csv.raw           Fast data output to disk

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Design Philosophy</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Design Philosophy</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;tibble&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;jsonlite&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;purrr&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;purrr&#39;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:jsonlite&#39;:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     flatten</span></span></code></pre></div>
+<p>The audience for this article is the developers of <strong>boxr</strong>, who may let many weeks or months pass without actively thinking about how the functions in this package:</p>
+<ul>
+<li><em>are</em> set up; there is some variation here</li>
+<li><em>could be</em> set up; Ian still argues with himself here, approaching with a different view every time he works on this repository.</li>
+</ul>
+<p>At its heart, the goal of this package is to abstract away the complexities of using the Box API. We assume that a new user starts using this package with some familiarity with the Tidyverse, and r-lib packages like <strong>fs</strong>, so we aim to provide them with a familiar way of doing things.</p>
+<p>Providing familiarity, particularly to emulate an opinionated framework like Tidyverse, requires us (as boxr developers) to introduce opinions. Thus, we also wish provide an “escape hatch”, which could be used by those who want to work outside of the Tidyverse, or outside of our opinions.</p>
+<p>In Tidyverse, the base unit of analysis is the data frame. Among the boxr’s developers, it is uncontroversial that we should use data frames as much as possible. However, data frames come in different flavors:</p>
+<ul>
+<li>use <strong>tibble</strong>, or no.</li>
+<li>use nested data frames, or no.</li>
+</ul>
+<div id="detour-into-postels-law" class="section level2">
+<h2>Detour into Postel’s Law</h2>
+<p>I (Ian) am a firm believer that following Postel’s Law helps us (and our users) avoid hard-to-diagnose trouble. As you may know, Postel’s law says to be “flexible in what you accept; strict in what you return”. In other words, we should strive to accept and interpret users’ input so long as the intent is clear, but we should specify very clearly what a function returns and adhere strictly to that specification.</p>
+<p>A famous Tidyverse example is how a subsetting a <code>data.frame</code> will, by default, return a <code>vector</code> rather than a <code>data.frame</code> if only one column is specified:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mtcars[, <span class="fu">c</span>(<span class="st">&quot;wt&quot;</span>, <span class="st">&quot;mpg&quot;</span>)])</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &#39;data.frame&#39;:    32 obs. of  2 variables:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ wt : num  2.62 2.88 2.32 3.21 3.44 ...</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ mpg: num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mtcars[, <span class="st">&quot;mpg&quot;</span>])</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  num [1:32] 21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...</span></span></code></pre></div>
+<p>To avoid this behavior you can specify <code>drop = FALSE</code>, but this is sometimes forgotten – even by experienced R users:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mtcars[, <span class="st">&quot;mpg&quot;</span>, <span class="at">drop =</span> <span class="cn">FALSE</span>])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &#39;data.frame&#39;:    32 obs. of  1 variable:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ mpg: num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...</span></span></code></pre></div>
+<p>The tibble designs this problem away. Following Postel’s law, a subsetting a tibble <em>always</em> returns a tibble; if you want a vector, you have to call another function. It is strict with its output.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">as_tibble</span>(mtcars)[, <span class="st">&quot;mpg&quot;</span>])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; tibble [32 × 1] (S3: tbl_df/tbl/data.frame)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ mpg: num [1:32] 21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...</span></span></code></pre></div>
+<p>As we figure out what our functions return, I want to keep Postel’s Law in mind.</p>
+</div>
+<div id="box-api" class="section level2">
+<h2>Box API</h2>
+<p>The boxr package is an exercise in abstracting away the Box API; sometimes this abstraction helps developers like me forget that it is actually there. It’s <a href="https://developer.box.com/reference/">there</a>.</p>
+<p>The API is classified according to <em>endpoints</em> and <em>resources</em>; I think of these as analogous to R <em>functions</em> and <em>objects</em>. The Box API is comprehensive; we cannot possibly aspire to cover it all. Instead, our goal is to provide easy access to as many day-to-day endpoints as we can, and provide a way to help <em>you</em> to access others if you need to.</p>
+<p>Some of our functions call to only one endpoint, e.g. <code>box_ls()</code> calls only the <a href="https://developer.box.com/reference/get-folders-id-items/#request">list items in folder endpoint</a>. Others of our functions call multiple endpoints, e.g <code>box_fetch()</code> calls the list-items endpoint, as well as the <a href="https://developer.box.com/reference/get-files-id-content/">download file endpoint</a>.</p>
+<p>If a function calls a single endpoint (perhaps even repeatedly), it should return the response (or collection of responses) that the API returns. Consider the content of a sample response from the <a href="https://developer.box.com/reference/resources/items/">list-items endpoint</a>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>content <span class="ot">&lt;-</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fromJSON</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">      &quot;entries&quot;: [</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">        {</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">          &quot;id&quot;: &quot;12345&quot;,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">          &quot;etag&quot;: &quot;1&quot;,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="st">          &quot;type&quot;: &quot;file&quot;,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">          &quot;sequence_id&quot;: &quot;3&quot;,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">          &quot;name&quot;: &quot;Contract.pdf&quot;,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">          &quot;sha1&quot;: &quot;85136C79CBF9FE36BB9D05D0639C70C265C18D37&quot;,</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="st">          &quot;file_version&quot;: {</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="st">            &quot;id&quot;: &quot;12345&quot;,</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="st">            &quot;type&quot;: &quot;file_version&quot;,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="st">            &quot;sha1&quot;: &quot;134b65991ed521fcfe4724b7d814ab8ded5185dc&quot;</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="st">          }</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="st">        }</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="st">      ],</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="st">      &quot;limit&quot;: 1000,</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="st">      &quot;offset&quot;: 2000,</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="st">      &quot;order&quot;: [</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="st">        {</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="st">          &quot;by&quot;: &quot;type&quot;,</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="st">          &quot;direction&quot;: &quot;ASC&quot;</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="st">        }</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="st">      ],</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="st">      &quot;total_count&quot;: 5000</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="st">    }&#39;</span>,</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">simplifyVector =</span> <span class="cn">FALSE</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>The sample response shown on the Box web-page is different from the response that I actually get. The example JSON, in the <code>&quot;entries&quot;</code> element, does not quote numeric values, e.g. <code>{&quot;id&quot;: 0}</code>, whereas the <em>actual</em> response does quote numeric values, e.g. <code>{&quot;id&quot;: &quot;0&quot;}</code>.</p>
+<p>While this may seem inconvenient, it may help us out because although elements like file <code>id</code> are nominally integers, they are often larger than R’s integer-maximum. For this reason, I think that from boxr’s perspective, <code>id</code> should remain a character string. That said, I think we can parse other things:</p>
+<ul>
+<li>other, smaller, numbers as integers, in this case <code>&quot;etag&quot;</code>, <code>&quot;sequence_id&quot;</code>.</li>
+<li>datetimes, these are elements that seem to end with <code>&quot;_at&quot;</code>.</li>
+<li>logicals; these are elements that seem to start with <code>&quot;is_&quot;</code>, <code>&quot;can_&quot;</code>, or <code>&quot;has_&quot;</code>.</li>
+</ul>
+<p>Here’s the parsed content.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(content)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; List of 5</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ entries    :List of 1</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ :List of 7</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ id          : chr &quot;12345&quot;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ etag        : chr &quot;1&quot;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ type        : chr &quot;file&quot;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ sequence_id : chr &quot;3&quot;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ name        : chr &quot;Contract.pdf&quot;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ sha1        : chr &quot;85136C79CBF9FE36BB9D05D0639C70C265C18D37&quot;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ file_version:List of 3</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..$ id  : chr &quot;12345&quot;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..$ type: chr &quot;file_version&quot;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..$ sha1: chr &quot;134b65991ed521fcfe4724b7d814ab8ded5185dc&quot;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ limit      : int 1000</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ offset     : int 2000</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ order      :List of 1</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ :List of 2</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ by       : chr &quot;type&quot;</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ direction: chr &quot;ASC&quot;</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ total_count: int 5000</span></span></code></pre></div>
+<p>In the <code>content</code> list, only the <code>entries</code> element has lasting information; the other elements deal with the pagination.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we could imagine this as a function that would contain all our parsing rules</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>parse_entry <span class="ot">&lt;-</span> <span class="cf">function</span>(entry) {</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># if we import tidyselect, we can use functions like `ends_with()`</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  entry <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map_at</span>(entry, <span class="fu">c</span>(<span class="st">&quot;etag&quot;</span>, <span class="st">&quot;sequence_id&quot;</span>), as.numeric)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  entry <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map_if</span>(entry, is.list, parse_entry)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  entry</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>entries <span class="ot">&lt;-</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  content<span class="sc">$</span>entries <span class="sc">%&gt;%</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(parse_entry)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(entries)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; List of 1</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ :List of 7</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ id          : chr &quot;12345&quot;</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ etag        : num 1</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ type        : chr &quot;file&quot;</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ sequence_id : num 3</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ name        : chr &quot;Contract.pdf&quot;</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ sha1        : chr &quot;85136C79CBF9FE36BB9D05D0639C70C265C18D37&quot;</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ file_version:List of 3</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ id  : chr &quot;12345&quot;</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ type: chr &quot;file_version&quot;</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ sha1: chr &quot;134b65991ed521fcfe4724b7d814ab8ded5185dc&quot;</span></span></code></pre></div>
+<p>Here’s where things get interesting.</p>
+<p>As it stands, many of boxr’s functions, e.g <code>box_ls()</code> will return the <code>entries</code> as a list of lists, attaching the S3 class <code>boxr_object_list</code>. It is minimally processed, allowing you to do with it as you please.</p>
+<p>This S3 class has an <code>as.data.frame()</code> method which will convert the element into a data frame. (If you want a data frame 99% of the time, it is inconvenient to call <code>as.data.frame()</code> 99% of the time.)</p>
+<p>It behaves much like the internal function we have, <code>stack_rows_df()</code>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>boxr<span class="sc">:::</span><span class="fu">stack_rows_df</span>(entries)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      id etag type sequence_id         name</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 12345    1 file           3 Contract.pdf</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                       sha1 file_version.id file_version.type</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 85136C79CBF9FE36BB9D05D0639C70C265C18D37           12345      file_version</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                          file_version.sha1</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 134b65991ed521fcfe4724b7d814ab8ded5185dc</span></span></code></pre></div>
+<p>For those who prefer tibbles, we have another function, <code>stack_rows_tbl()</code>:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>boxr<span class="sc">:::</span><span class="fu">stack_rows_tbl</span>(entries)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 7</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id     etag type  sequence_id name      sha1                    file_version  </span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;                   &lt;list&gt;        </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 12345     1 file            3 Contract… 85136C79CBF9FE36BB9D05… &lt;named list […</span></span></code></pre></div>
+<p>A couple of things you might notice:</p>
+<ul>
+<li><p><code>stack_rows_df()</code> returns a <code>data.frame</code>. List items are unnested; the nested item names are delimited with a <code>.</code>, e.g. <code>file_version.id</code>.</p></li>
+<li><p><code>stack_rows_tbl()</code> returns a tibble. List items remain nested.</p></li>
+</ul>
+</div>
+<div id="boxr-functions" class="section level2">
+<h2>boxr functions</h2>
+<p>Right now, we have a few different ways to deal with return objects:</p>
+<ul>
+<li><code>box_version_history()</code>: calls a single endpoint, returns a data frame, but we modify the columns: combining <code>type</code> and <code>id</code> into <code>version_id</code>.</li>
+<li><code>box_collab_create()</code>: calls a single endpoint, returns a list with an S3 class <code>&quot;boxr_collab&quot;</code>. This S3 class has an <code>as.data.frame()</code> method, and an <code>as_tibble()</code> method.</li>
+<li><code>box_ls()</code>: calls a single endpoint, returns a list with an S3 class <code>&quot;boxr_object_list&quot;</code>. This S3 class has an <code>as.data.frame()</code> method.</li>
+<li><code>box_fetch()</code>: calls multiple endpoints, returns a list with an S3 class <code>&quot;boxr_dir_wide_operation_result&quot;</code>. This S3 class does not have an <code>as.data.frame()</code> method.</li>
+</ul>
+<p>The goal is to find a way to harmonize this, without causing too many backward incompatibilities.</p>
+</div>
+<div id="ideas-for-how-to-proceed" class="section level2">
+<h2>Ideas for how to proceed</h2>
+<p>I’m thinking out loud here to sketch out ways to proceed so that we provide a consistent return object:</p>
+<ul>
+<li>day-to-day users receive a data-frame-like return object, in some “optimally-wrangled” form.</li>
+<li>other users can emulate the process and get the information they need.</li>
+</ul>
+<p>We will walk through a simplified reimagining of the <code>box_ls()</code> function.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;boxr&quot;</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">box_auth</span>()</span></code></pre></div>
+<pre><code>Using `BOX_CLIENT_ID` from environment
+Using `BOX_CLIENT_SECRET` from environment
+boxr: Authenticated using OAuth2 as Ian LYTTLE (ian.lyttle@se.com, id: 196942982)</code></pre>
+<div id="single-function-to-call-the-api" class="section level3">
+<h3>Single function to call the API</h3>
+<p>Let’s imagine a single function in the package that calls the API. It will be more involved than this, but it will give you an idea.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this works for Ian&#39;s Box account - no-one else</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>dir_id <span class="ot">&lt;-</span> <span class="st">&quot;123053109701&quot;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># returns a httr response object</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>box_api_response <span class="ot">&lt;-</span> <span class="cf">function</span>(verb, endpoint) {</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    httr<span class="sc">::</span><span class="fu">RETRY</span>(</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>      verb,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>      glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;https://api.box.com/2.0/{endpoint}&quot;</span>),</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>      boxr<span class="sc">:::</span><span class="fu">get_token</span>(),</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">terminate_on =</span> boxr<span class="sc">:::</span><span class="fu">box_terminal_http_codes</span>()</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  response  </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">box_api_response</span>(<span class="st">&quot;GET&quot;</span>, glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;folders/{dir_id}/items/&quot;</span>))</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>response</span></code></pre></div>
+<pre><code>Response [https://api.box.com/2.0/folders/123053109701/items/]
+  Date: 2020-10-17 01:04
+  Status: 200
+  Content-Type: application/json
+  Size: 640 B</code></pre>
+</div>
+<div id="extract-content" class="section level3">
+<h3>Extract content</h3>
+<p>At this point, we have no idea if the response is any good or not, nor have we extracted the content.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>box_content <span class="ot">&lt;-</span> <span class="cf">function</span>(response, <span class="at">task =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">stop_for_status</span>(response, <span class="at">task =</span> task)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  text <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">content</span>(response, <span class="at">as =</span> <span class="st">&quot;text&quot;</span>, <span class="at">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we may want to deviate from the defaults</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  content <span class="ot">&lt;-</span> jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(text, <span class="at">simplifyDataFrame =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  content</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>This lets someone get a JSON list, or an error message if the response is bad.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>content <span class="ot">&lt;-</span> <span class="fu">box_content</span>(response, <span class="at">task =</span> <span class="st">&quot;get directory listing&quot;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(content)</span></code></pre></div>
+<pre><code>List of 5
+ $ total_count: int 2
+ $ entries    :List of 2
+  ..$ :List of 7
+  .. ..$ type        : chr &quot;file&quot;
+  .. ..$ id          : chr &quot;721629732867&quot;
+  .. ..$ file_version:List of 3
+  .. .. ..$ type: chr &quot;file_version&quot;
+  .. .. ..$ id  : chr &quot;767453805267&quot;
+  .. .. ..$ sha1: chr &quot;c66f70f6c65f8cd381434a56165640d50fb3a9c2&quot;
+  .. ..$ sequence_id : chr &quot;0&quot;
+  .. ..$ etag        : chr &quot;0&quot;
+  .. ..$ sha1        : chr &quot;c66f70f6c65f8cd381434a56165640d50fb3a9c2&quot;
+  .. ..$ name        : chr &quot;another-attempt-at-dark-mode.pdf&quot;
+  ..$ :List of 7
+  .. ..$ type        : chr &quot;file&quot;
+  .. ..$ id          : chr &quot;721628453889&quot;
+  .. ..$ file_version:List of 3
+  .. .. ..$ type: chr &quot;file_version&quot;
+  .. .. ..$ id  : chr &quot;767454763288&quot;
+  .. .. ..$ sha1: chr &quot;69ad086c3f8d96b991b8f8bcce67b95708397b1a&quot;
+  .. ..$ sequence_id : chr &quot;2&quot;
+  .. ..$ etag        : chr &quot;2&quot;
+  .. ..$ sha1        : chr &quot;69ad086c3f8d96b991b8f8bcce67b95708397b1a&quot;
+  .. ..$ name        : chr &quot;ctz-widget.txt&quot;
+ $ offset     : int 0
+ $ limit      : int 100
+ $ order      :List of 2
+  ..$ :List of 2
+  .. ..$ by       : chr &quot;type&quot;
+  .. ..$ direction: chr &quot;ASC&quot;
+  ..$ :List of 2
+  .. ..$ by       : chr &quot;name&quot;
+  .. ..$ direction: chr &quot;ASC&quot;</code></pre>
+</div>
+<div id="parse-content" class="section level3">
+<h3>Parse content</h3>
+<p>Now, it may be interesting to parse the content into a list. We can use the <code>parse_entry()</code> function from above. Note that some endpoints return an <code>entries</code> element, others don’t. This one does.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>box_parse_entries <span class="ot">&lt;-</span> <span class="cf">function</span>(entries) {</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map</span>(entries, parse_entry)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>parsed <span class="ot">&lt;-</span> <span class="fu">box_parse_entries</span>(content<span class="sc">$</span>entries)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(parsed)</span></code></pre></div>
+<pre><code>List of 2
+ $ :List of 7
+  ..$ type        : chr &quot;file&quot;
+  ..$ id          : chr &quot;721629732867&quot;
+  ..$ file_version:List of 3
+  .. ..$ type: chr &quot;file_version&quot;
+  .. ..$ id  : chr &quot;767453805267&quot;
+  .. ..$ sha1: chr &quot;c66f70f6c65f8cd381434a56165640d50fb3a9c2&quot;
+  ..$ sequence_id : num 0
+  ..$ etag        : num 0
+  ..$ sha1        : chr &quot;c66f70f6c65f8cd381434a56165640d50fb3a9c2&quot;
+  ..$ name        : chr &quot;another-attempt-at-dark-mode.pdf&quot;
+ $ :List of 7
+  ..$ type        : chr &quot;file&quot;
+  ..$ id          : chr &quot;721628453889&quot;
+  ..$ file_version:List of 3
+  .. ..$ type: chr &quot;file_version&quot;
+  .. ..$ id  : chr &quot;767454763288&quot;
+  .. ..$ sha1: chr &quot;69ad086c3f8d96b991b8f8bcce67b95708397b1a&quot;
+  ..$ sequence_id : num 2
+  ..$ etag        : num 2
+  ..$ sha1        : chr &quot;69ad086c3f8d96b991b8f8bcce67b95708397b1a&quot;
+  ..$ name        : chr &quot;ctz-widget.txt&quot;</code></pre>
+</div>
+<div id="stack-in-tabular-form" class="section level3">
+<h3>Stack in tabular form</h3>
+<p>The parsed content (here at least) is a list of lists. We can stack this into a tibble from the parsed info:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> boxr<span class="sc">:::</span><span class="fu">stack_rows_tbl</span>(parsed)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>tbl</span></code></pre></div>
+<pre><code># A tibble: 2 x 7
+  type  id        file_version   sequence_id  etag sha1                    name               
+  &lt;chr&gt; &lt;chr&gt;     &lt;list&gt;               &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                   &lt;chr&gt;              
+1 file  72162973… &lt;named list […           0     0 c66f70f6c65f8cd381434a… another-attempt-at…
+2 file  72162845… &lt;named list […           2     2 69ad086c3f8d96b991b8f8… ctz-widget.txt </code></pre>
+</div>
+<div id="wrangle" class="section level3">
+<h3>Wrangle</h3>
+<p>For this function, we do not propose any post-processing of the stacked content. However, <code>box_version_history()</code> does this: combining <code>type</code> and <code>id</code> into <code>version_id</code>.</p>
+</div>
+<div id="all-together" class="section level3">
+<h3>All together</h3>
+<p>We now have the building blocks for our reimagined <code>box_ls()</code> function:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>box_dir_info <span class="ot">&lt;-</span> <span class="cf">function</span>(dir_id) {</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">box_api_response</span>(<span class="st">&quot;GET&quot;</span>, glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;folders/{dir_id}/items/&quot;</span>))</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  entries <span class="ot">&lt;-</span> <span class="fu">box_content</span>(response, <span class="at">task =</span> <span class="st">&quot;get directory listing&quot;</span>)[[<span class="st">&quot;entries&quot;</span>]]</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The above is an oversimplification. In actuality, these two functions </span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># would be combined into one function that would take care of the pagination, </span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># something like:</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># entries &lt;- </span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  box_api_entries(</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#    &quot;GET&quot;, </span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">#     endpoint = glue::glue(&quot;folders/{dir_id}/items/&quot;),</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">#     task = &quot;get directory listing&quot;</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  )</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># box_api_entries() would call box_api_response() and box_content()</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  parsed <span class="ot">&lt;-</span> <span class="fu">box_parse_entries</span>(entries)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>  stacked <span class="ot">&lt;-</span> boxr<span class="sc">:::</span><span class="fu">stack_rows_tbl</span>(parsed)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># not doing anything here, but box_version_history() changes some columns</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>  wrangled <span class="ot">&lt;-</span> stacked</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>  wrangled</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a><span class="fu">box_dir_info</span>(dir_id)</span></code></pre></div>
+<pre><code># A tibble: 2 x 7
+  type  id        file_version   sequence_id  etag sha1                    name               
+  &lt;chr&gt; &lt;chr&gt;     &lt;list&gt;               &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                   &lt;chr&gt;              
+1 file  72162973… &lt;named list […           0     0 c66f70f6c65f8cd381434a… another-attempt-at…
+2 file  72162845… &lt;named list […           2     2 69ad086c3f8d96b991b8f8… ctz-widget.txt </code></pre>
+<p>There are five distinct steps, each of which could be adapted to particular circumstances, each of which could be exposed to the user so they can “roll their own”:</p>
+<ul>
+<li><p>get the response from the Box API.</p></li>
+<li><p>check the response and extract the content.</p></li>
+<li><p>parse the content (convert strings to datetimes, etc.).</p></li>
+<li><p>stack the parsed content into a canonical tabular form (data frame or tibble).</p></li>
+<li><p>wrangle the stacked content (rename columns, etc.).</p></li>
+</ul>
+<p>Also, there would be three “families” of functions:</p>
+<ul>
+<li>those that make potentially multiple calls to a single endpoint, but response has <code>entries</code> (implying pagination), e.g. <code>box_ls()</code>.</li>
+<li>those that make a single call to a single endpoint, e.g. <code>box_collab_create()</code>.</li>
+<li>those that make all sorts of calls to all sorts of endpoints, e.g. <code>box_fetch()</code>.</li>
+</ul>
+<p>The point of this vignette, in its current form, is to sketch out how the first two families might work. The third family will require more consideration and considerably more coffee.</p>
+<p>This could simplify the creation of new box functions, and perhaps let us simplify some existing ones. We could export <code>box_api_response()</code>, <code>box_content()</code>, <code>box_parse_entries()</code> (and <code>box_parse_entry()</code>), and <code>stack_rows_tbl()</code>; this would allow someone to access the Box API themselves, much-more-easily.</p>
+<p>Of course, the functions would have better-thought-out names, and would be more complicated themselves. However, the areas of responsibility for each function would be the same.</p>
+</div>
+</div>
+<div id="questions-and-lingering-issues" class="section level2">
+<h2>Questions and lingering issues</h2>
+<p>What should be the canonical form of data that we return?</p>
+<ul>
+<li>I can see an argument for the tibble, given that we are Tidyverse-friendly already. I can also see the appeal of keeping things nested.</li>
+<li>I can also appreciate the appeal of the data frame, as Nate put it: “The US Dollar of data analysis”.</li>
+<li>Should we pick one of these, we can always provide a selection of helpers, e.g. <code>box_tibble()</code>, <code>box_nest()</code>, <code>box_unnest()</code>, <code>box_data_frame()</code>. These functions could be used to translate among the formats.</li>
+</ul>
+<p>One way that we can avoid “breaking changes” is to create a new function with a new name for the new functionality. We can then “supersede” or “deprecate” the old function.</p>
+<p>The problem comes when an old function has a really good name.</p>
+</div>
+<div id="documentation-normalization" class="section level2">
+<h2>Documentation normalization</h2>
+<p>Another thing we would like to do is to make the documentation simpler for us to maintain. With this release, we take two steps in that direction:</p>
+<ul>
+<li><p>an internal function <code>string_side_effects()</code>:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>boxr<span class="sc">:::</span><span class="fu">string_side_effects</span>()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Invisible `NULL`, called for side effects.&quot;</span></span></code></pre></div>
+<p>This is useful to specify a return value:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return `r string_side_effects()`</span></span></code></pre></div></li>
+<li><p>canonical parameter-definitions:</p>
+<ul>
+<li><code>box_browse()</code>: <code>file_id</code>, <code>dir_id</code></li>
+<li><code>box_dl()</code>: <code>local_dir</code>, <code>file_name</code>, <code>overwrite</code>, <code>version_id</code>, <code>version_no</code> (<code>file_id</code> also available)</li>
+<li><code>box_ul()</code>: <code>description</code> (<code>dir_id</code> also available)</li>
+</ul>
+<p>This cuts down on the possibilities for invoking different functions when we need only invoke one or two:</p>
+<pre><code>#&#39; @inheritParams box_browse</code></pre></li>
+</ul>
+<p>As we notice more duplication, we can add to this section.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

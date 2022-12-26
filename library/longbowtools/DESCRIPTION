@@ -1,0 +1,27 @@
+Package: longbowtools
+Title: Longbow Interface in R
+Version: 0.0.0.9000
+Authors@R: person("Jeremy", "Coyle", email = "jeremyrcoyle@gmail.com", role = c("aut", "cre"))
+Description: longbowtools provides glue for authoring scripts to be run via the Longbow app.
+Imports: R6, data.table, jsonlite, knitr, rmarkdown, httr, utils,
+        skimr, stringr, progress
+License: GPL-3
+Encoding: UTF-8
+RoxygenNote: 6.1.0
+Suggests: testthat, sl3, tmle3
+Remotes: github::jeremyrcoyle/skimr@vector_types
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: longbowtools
+RemoteUsername: tlverse
+RemoteRef: HEAD
+RemoteSha: bf0a35a7b9cda3b6fc1b2a13b2109d6cefb36899
+GithubRepo: longbowtools
+GithubUsername: tlverse
+GithubRef: HEAD
+GithubSHA1: bf0a35a7b9cda3b6fc1b2a13b2109d6cefb36899
+NeedsCompilation: no
+Packaged: 2022-09-17 19:03:12 UTC; haodongli
+Author: Jeremy Coyle [aut, cre]
+Maintainer: Jeremy Coyle <jeremyrcoyle@gmail.com>
+Built: R 4.2.1; ; 2022-09-17 19:03:13 UTC; unix

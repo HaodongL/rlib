@@ -1,0 +1,14 @@
+bundle_args	bundle_delayed
+bundle_delayed	bundle_delayed
+Delayed	DelayedClass
+delayed	delayed
+delayed_fun	delayed
+eval_delayed	eval_delayed
+find_delayed_error	find_delayed_error
+FutureJob	FutureJob
+Job	Job
+make_graph	make_graph
+plot.Delayed	plot.Delayed
+plot_delayed_shiny	plot_delayed_shiny
+Scheduler	Scheduler
+SequentialJob	SequentialJob

@@ -1,0 +1,67 @@
+Package: skimr
+Title: Compact and Flexible Summaries of Data
+Version: 1.0.2
+Authors@R: c(
+  person("Amelia", "McNamara", email="amcnamara@smith.edu", role = "aut"),
+  person("Eduardo", "Arino de la Rubia", email="earino@gmail.com", role = "aut"),
+  person("Hao", "Zhu", email="haozhu233@gmail.com", role = "aut"),
+  person("Julia", "Lowndes", email="lowndes@nceas.ucsb.edu", role = 'ctb'),
+  person("Shannon", "Ellis", email="sellis18@jhmi.edu", role = "aut"),
+  person("Elin", "Waring", email="elin.waring@gmail.com", role = "cre"),
+  person("Michael", "Quinn", email="msquinn@google.com", role = "aut"),
+  person("Hope", "McLeod", email="hmgit2@gmail.com", role = 'ctb'),
+  person("Hadley", "Wickham", email="hadley@rstudio.com", role = 'ctb'),
+  person("Kirill", "Müller", email="krlmlr+r@mailbox.org", role = 'ctb'),
+  person(family = "RStudio, Inc.", role = "cph", comment = "Spark functions"),
+  person("Connor", "Kirkpatrick", email="hello@connorkirkpatrick.com", role = 'ctb'),
+  person("Scott","Brenstuhl", email="brenstsr@miamioh.edu", role = 'ctb')
+  )
+Description: A simple to use summary function that can be used with pipes
+    and displays nicely in the console. The default summary statistics may be 
+    modified by the user as can the default formatting. Support for data frames 
+    and vectors is included, and users can implement their own skim methods for
+    specific object types as described in a vignette. Default summaries include
+    support for inline spark graphs. Instructions for managing these on 
+    specific operating systems are given in the "Using skimr" vignette and the 
+    README.
+Depends: R (>= 3.1.2)
+Imports: dplyr (>= 0.7), magrittr, pander, purrr, rlang, stats, stringr
+        (>= 1.1), knitr, tibble (>= 0.6), tidyr (>= 0.7), tidyselect
+Suggests: extrafont, rmarkdown, testthat (>= 2.0.0), withr, covr
+License: GPL-3
+Encoding: UTF-8
+URL: https://github.com/ropenscilabs/skimr
+BugReports: https://github.com/ropenscilabs/skimr/issues
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
+Collate: 'skimr-package.R' 'formats.R' 'stats.R' 'functions.R'
+        'kable.R' 'options.R' 'pander.R' 'skim.R' 'skim_print.R'
+        'skim_v.R' 'summary.R' 'utils.R' 'wide.R'
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: skimr
+RemoteUsername: jeremyrcoyle
+RemoteRef: vector_types
+RemoteSha: a1c792d57ccdbb0f9db664c66db4aacc521163ad
+GithubRepo: skimr
+GithubUsername: jeremyrcoyle
+GithubRef: vector_types
+GithubSHA1: a1c792d57ccdbb0f9db664c66db4aacc521163ad
+NeedsCompilation: no
+Packaged: 2022-09-17 19:03:07 UTC; haodongli
+Author: Amelia McNamara [aut],
+  Eduardo Arino de la Rubia [aut],
+  Hao Zhu [aut],
+  Julia Lowndes [ctb],
+  Shannon Ellis [aut],
+  Elin Waring [cre],
+  Michael Quinn [aut],
+  Hope McLeod [ctb],
+  Hadley Wickham [ctb],
+  Kirill Müller [ctb],
+  RStudio, Inc. [cph] (Spark functions),
+  Connor Kirkpatrick [ctb],
+  Scott Brenstuhl [ctb]
+Maintainer: Elin Waring <elin.waring@gmail.com>
+Built: R 4.2.1; ; 2022-09-17 19:03:08 UTC; unix

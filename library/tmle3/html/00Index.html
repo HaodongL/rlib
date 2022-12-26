@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head><title>R: The Extensible TMLE Framework</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+<h1> The Extensible TMLE Framework
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;tmle3&rsquo; version 0.2.0</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="npsem_helpers.html">all_ancestors</a></td>
+<td>Helper functions for the NPSEM</td></tr>
+<tr><td style="width: 25%;"><a href="bound.html">bound</a></td>
+<td>Bound (Truncate) Likelihoods</td></tr>
+<tr><td style="width: 25%;"><a href="CF_Likelihood.html">CF_Likelihood</a></td>
+<td>Counterfactual Likelihood</td></tr>
+<tr><td style="width: 25%;"><a href="define_lf.html">define_lf</a></td>
+<td>Define a Likelihood Factor</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Node.html">define_node</a></td>
+<td>A Node (set of variables) in an NPSEM</td></tr>
+<tr><td style="width: 25%;"><a href="define_param.html">define_param</a></td>
+<td>Define a Parameter</td></tr>
+<tr><td style="width: 25%;"><a href="delta_param_ATE.html">delta_param_ATE</a></td>
+<td>PAR = Linear Contrast EY1-EY0</td></tr>
+<tr><td style="width: 25%;"><a href="delta_param_OR.html">delta_param_OR</a></td>
+<td>Odds Ratio odds(Y1)/odds(Y0)</td></tr>
+<tr><td style="width: 25%;"><a href="delta_param_PAF.html">delta_param_PAF</a></td>
+<td>PAF = 1 - (1/RR(EY/E0))</td></tr>
+<tr><td style="width: 25%;"><a href="delta_param_PAR.html">delta_param_PAR</a></td>
+<td>PAR = Linear Contrast EY-EY0</td></tr>
+<tr><td style="width: 25%;"><a href="delta_param_RR.html">delta_param_RR</a></td>
+<td>Risk Ratio EY1/EY0</td></tr>
+<tr><td style="width: 25%;"><a href="propensity_scores.html">density_formula</a></td>
+<td>Get and Plot Propensity Scores</td></tr>
+<tr><td style="width: 25%;"><a href="discretize_variable.html">discretize_variable</a></td>
+<td>Discretize Continuous Variable</td></tr>
+<tr><td style="width: 25%;"><a href="ED_from_estimates.html">ED_from_estimates</a></td>
+<td>Get Empirical Mean of EIFs from Estimates</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Fit.html">fit_tmle3</a></td>
+<td>TMLE fit object</td></tr>
+<tr><td style="width: 25%;"><a href="propensity_scores.html">get_propensity_scores</a></td>
+<td>Get and Plot Propensity Scores</td></tr>
+<tr><td style="width: 25%;"><a href="LF_base.html">LF_base</a></td>
+<td>Base Class for Defining Likelihood Factors</td></tr>
+<tr><td style="width: 25%;"><a href="LF_derived.html">LF_derived</a></td>
+<td>Derived Likelihood Factor Estimated from Data + Other Likelihood values, using sl3.</td></tr>
+<tr><td style="width: 25%;"><a href="LF_emp.html">LF_emp</a></td>
+<td>Likelihood Factor Estimated using Empirical Distribution</td></tr>
+<tr><td style="width: 25%;"><a href="LF_fit.html">LF_fit</a></td>
+<td>Likelihood Factor Estimated from Data using sl3.</td></tr>
+<tr><td style="width: 25%;"><a href="LF_known.html">LF_known</a></td>
+<td>Known True Likelihood Factor</td></tr>
+<tr><td style="width: 25%;"><a href="LF_static.html">LF_static</a></td>
+<td>Static Likelihood Factor</td></tr>
+<tr><td style="width: 25%;"><a href="LF_targeted.html">LF_targeted</a></td>
+<td>Use a likelihood factor from an existing targeted likelihood</td></tr>
+<tr><td style="width: 25%;"><a href="Likelihood.html">Likelihood</a></td>
+<td>Class for Likelihood</td></tr>
+<tr><td style="width: 25%;"><a href="Likelihood_cache.html">Likelihood_cache</a></td>
+<td>Cache Likelihood values, update those values</td></tr>
+<tr><td style="width: 25%;"><a href="CF_Likelihood.html">make_CF_Likelihood</a></td>
+<td>Counterfactual Likelihood</td></tr>
+<tr><td style="width: 25%;"><a href="Likelihood.html">make_Likelihood</a></td>
+<td>Class for Likelihood</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Task.html">make_tmle3_Task</a></td>
+<td>Class for Storing Data and NPSEM for TMLE</td></tr>
+<tr><td style="width: 25%;"><a href="Param_ATC.html">Param_ATC</a></td>
+<td>Additive Effect of Treatment Among the Treated</td></tr>
+<tr><td style="width: 25%;"><a href="Param_ATE.html">Param_ATE</a></td>
+<td>Average Treatment Effect</td></tr>
+<tr><td style="width: 25%;"><a href="Param_ATT.html">Param_ATT</a></td>
+<td>Additive Effect of Treatment Among the Treated</td></tr>
+<tr><td style="width: 25%;"><a href="Param_base.html">Param_base</a></td>
+<td>Base Class for Defining Parameters</td></tr>
+<tr><td style="width: 25%;"><a href="Param_delta.html">Param_delta</a></td>
+<td>Delta Method Parameters</td></tr>
+<tr><td style="width: 25%;"><a href="Param_mean.html">Param_mean</a></td>
+<td>Mean of Outcome Node</td></tr>
+<tr><td style="width: 25%;"><a href="Param_MSM.html">Param_MSM</a></td>
+<td>Stratified Parameter Estimates via MSM</td></tr>
+<tr><td style="width: 25%;"><a href="Param_stratified.html">Param_stratified</a></td>
+<td>Stratified Parameter Estimates</td></tr>
+<tr><td style="width: 25%;"><a href="Param_survival.html">Param_survival</a></td>
+<td>Survival Curve</td></tr>
+<tr><td style="width: 25%;"><a href="Param_TSM.html">Param_TSM</a></td>
+<td>Treatment Specific Mean</td></tr>
+<tr><td style="width: 25%;"><a href="plot_vim.html">plot_vim</a></td>
+<td>Plot results of variable importance analysis</td></tr>
+<tr><td style="width: 25%;"><a href="point_tx.html">point_tx_likelihood</a></td>
+<td>Helper Functions for Point Treatment</td></tr>
+<tr><td style="width: 25%;"><a href="point_tx.html">point_tx_npsem</a></td>
+<td>Helper Functions for Point Treatment</td></tr>
+<tr><td style="width: 25%;"><a href="point_tx.html">point_tx_task</a></td>
+<td>Helper Functions for Point Treatment</td></tr>
+<tr><td style="width: 25%;"><a href="process_missing.html">process_missing</a></td>
+<td>Preprocess Data to Handle Missing Variables</td></tr>
+<tr><td style="width: 25%;"><a href="propensity_scores.html">propensity_score_plot</a></td>
+<td>Get and Plot Propensity Scores</td></tr>
+<tr><td style="width: 25%;"><a href="propensity_scores.html">propensity_score_table</a></td>
+<td>Get and Plot Propensity Scores</td></tr>
+<tr><td style="width: 25%;"><a href="submodel_logit.html">submodel_logit</a></td>
+<td>Logistic Submodel Fluctuation</td></tr>
+<tr><td style="width: 25%;"><a href="summary_from_estimates.html">summary_from_estimates</a></td>
+<td>Summarize Estimates</td></tr>
+<tr><td style="width: 25%;"><a href="survival_tx.html">survival_tx_likelihood</a></td>
+<td>Helper Functions for Survival Analysis</td></tr>
+<tr><td style="width: 25%;"><a href="survival_tx.html">survival_tx_npsem</a></td>
+<td>Helper Functions for Survival Analysis</td></tr>
+<tr><td style="width: 25%;"><a href="survival_tx.html">survival_tx_task</a></td>
+<td>Helper Functions for Survival Analysis</td></tr>
+<tr><td style="width: 25%;"><a href="Targeted_Likelihood.html">Targeted_Likelihood</a></td>
+<td>Targeted Likelihood</td></tr>
+<tr><td style="width: 25%;"><a href="npsem_helpers.html">time_ordering</a></td>
+<td>Helper functions for the NPSEM</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3.html">tmle3</a></td>
+<td>TMLE from a tmle3_Spec object</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Fit.html">tmle3_Fit</a></td>
+<td>TMLE fit object</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Node.html">tmle3_Node</a></td>
+<td>A Node (set of variables) in an NPSEM</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Spec.html">tmle3_Spec</a></td>
+<td>Defines a TML Estimator (except for the data)</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Spec_ATC.html">tmle3_Spec_ATC</a></td>
+<td>Defines a TML Estimator (except for the data)</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Spec_ATE.html">tmle3_Spec_ATE</a></td>
+<td>Defines a TML Estimator (except for the data)</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Spec_ATT.html">tmle3_Spec_ATT</a></td>
+<td>Defines a TML Estimator (except for the data)</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Spec_MSM.html">tmle3_Spec_MSM</a></td>
+<td>Defines a Stratified TML Estimator with MSM (except for the data)</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Spec_OR.html">tmle3_Spec_OR</a></td>
+<td>Defines a TML Estimator for the Odds Ratio</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Spec_PAR.html">tmle3_Spec_PAR</a></td>
+<td>Defines a tmle (minus the data)</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Spec_RR.html">tmle3_Spec_RR</a></td>
+<td>Defines a TML Estimator for the Risk Ratio</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Spec_stratified.html">tmle3_Spec_stratified</a></td>
+<td>Defines a Stratified TML Estimator (except for the data)</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Spec_survival.html">tmle3_Spec_survival</a></td>
+<td>Defines a TML Estimator (except for the data)</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Spec_TSM_all.html">tmle3_Spec_TSM_all</a></td>
+<td>Defines a TML Estimator (except for the data)</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Task.html">tmle3_Task</a></td>
+<td>Class for Storing Data and NPSEM for TMLE</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Update.html">tmle3_Update</a></td>
+<td>Defines an update procedure (submodel+loss function)</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_Update_survival.html">tmle3_Update_survival</a></td>
+<td>Defines an update procedure (submodel+loss function) for survival data</td></tr>
+<tr><td style="width: 25%;"><a href="tmle3_vim.html">tmle3_vim</a></td>
+<td>Compute Variable Importance Measures (VIM) with any given parameter</td></tr>
+<tr><td style="width: 25%;"><a href="tmle_ATC.html">tmle_ATC</a></td>
+<td>All Treatment Specific Means</td></tr>
+<tr><td style="width: 25%;"><a href="tmle_ATE.html">tmle_ATE</a></td>
+<td>All Treatment Specific Means</td></tr>
+<tr><td style="width: 25%;"><a href="tmle_ATT.html">tmle_ATT</a></td>
+<td>All Treatment Specific Means</td></tr>
+<tr><td style="width: 25%;"><a href="tmle_MSM.html">tmle_MSM</a></td>
+<td>Make MSM version of Stratified TML estimator class</td></tr>
+<tr><td style="width: 25%;"><a href="tmle_OR.html">tmle_OR</a></td>
+<td>Odds Ratio</td></tr>
+<tr><td style="width: 25%;"><a href="tmle_PAR.html">tmle_PAR</a></td>
+<td>PAR and PAF</td></tr>
+<tr><td style="width: 25%;"><a href="tmle_RR.html">tmle_RR</a></td>
+<td>Risk Ratio</td></tr>
+<tr><td style="width: 25%;"><a href="tmle_stratified.html">tmle_stratified</a></td>
+<td>Stratified version of TML estimator from other Spec classes</td></tr>
+<tr><td style="width: 25%;"><a href="tmle_survival.html">tmle_survival</a></td>
+<td>Treatment Specific Survival</td></tr>
+<tr><td style="width: 25%;"><a href="tmle_TSM_all.html">tmle_TSM_all</a></td>
+<td>All Treatment Specific Means</td></tr>
+<tr><td style="width: 25%;"><a href="train_lf.html">train_lf</a></td>
+<td>Manually Train Likelihood Factor The internal training process for likelihood factors is somewhat obtuse, so this function does the steps to manually train one, which is helpful if you want to use a likelihood factor independently of a likelihood object</td></tr>
+</table>
+</div></body></html>

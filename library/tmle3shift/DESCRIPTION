@@ -1,0 +1,55 @@
+Package: tmle3shift
+Title: Targeted Learning of the Causal Effects of Stochastic
+        Interventions
+Version: 0.2.0
+Authors@R: c(
+    person("Nima", "Hejazi", email = "nh@nimahejazi.org",
+           role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0002-7127-2789")),
+    person("Jeremy", "Coyle", email = "jeremy.coyle@gmail.com",
+           role = c("aut"),
+           comment = c(ORCID = "0000-0002-9874-6649")),
+    person("Mark", "van der Laan", email = "laan@berkeley.edu",
+           role = c("aut", "ths"),
+           comment = c(ORCID = "0000-0003-1432-5511"))
+  )
+Maintainer: Nima Hejazi <nh@nimahejazi.org>
+Description: Targeted maximum likelihood estimation (TMLE) of population-level
+    causal effects under stochastic treatment regimes and related nonparametric
+    variable importance analyses. Tools are provided for TML estimation of the
+    counterfactual mean under a stochastic intervention characterized as a
+    modified treatment policy, such as treatment policies that shift the natural
+    value of the exposure. The causal parameter and estimation were described in
+    Díaz and van der Laan (2013) <doi:10.1111/j.1541-0420.2011.01685.x> and an
+    improved estimation approach was given by Díaz and van der Laan (2018)
+    <doi:10.1007/978-3-319-65304-4_14>.
+Depends: R (>= 3.4.0)
+License: GPL-3
+Imports: R6, uuid, methods, data.table, assertthat, tmle3 (>= 0.2.0)
+Suggests: testthat, knitr, rmarkdown, covr, stats, ggplot2, sl3 (>=
+        1.4.2), txshift (>= 0.3.5), haldensify (>= 0.0.5), hal9001,
+        xgboost, ranger, Rsolnp, nnls
+Remotes: github::tlverse/sl3, github::tlverse/tmle3
+URL: https://tlverse.org/tmle3shift
+BugReports: https://github.com/tlverse/tmle3shift/issues
+Encoding: UTF-8
+LazyLoad: yes
+VignetteBuilder: knitr
+RoxygenNote: 7.1.1.9001
+Roxygen: list(markdown = TRUE, r6 = FALSE)
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: tmle3shift
+RemoteUsername: tlverse
+RemoteRef: HEAD
+RemoteSha: 4ed52b50af501a5fa2e6257b568d17fd485d3f42
+GithubRepo: tmle3shift
+GithubUsername: tlverse
+GithubRef: HEAD
+GithubSHA1: 4ed52b50af501a5fa2e6257b568d17fd485d3f42
+NeedsCompilation: no
+Packaged: 2022-09-17 19:03:55 UTC; haodongli
+Author: Nima Hejazi [aut, cre, cph] (<https://orcid.org/0000-0002-7127-2789>),
+  Jeremy Coyle [aut] (<https://orcid.org/0000-0002-9874-6649>),
+  Mark van der Laan [aut, ths] (<https://orcid.org/0000-0003-1432-5511>)
+Built: R 4.2.1; ; 2022-09-17 19:03:56 UTC; unix

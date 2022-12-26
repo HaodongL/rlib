@@ -1,0 +1,39 @@
++.formula_hal9001       HAL Formula addition: Adding formula term
+                        object together into a single formula object
+                        term.
+SL.hal9001              Wrapper for Classic SuperLearner
+apply_copy_map          Apply copy map
+as_dgCMatrix            Fast Coercion to Sparse Matrix
+basis_list_cols         List Basis Functions
+basis_of_degree         Compute Degree of Basis Functions
+cv_lasso                Cross-validated Lasso on Indicator Bases
+cv_lasso_early_stopping
+                        Cross-validated LASSO on Indicator Bases
+enumerate_basis         Enumerate Basis Functions
+evaluate_basis          Generate Basis Functions
+fit_hal                 HAL: The Highly Adaptive Lasso
+formula_hal             HAL Formula: Convert formula or string to
+                        'formula_HAL' object.
+formula_helpers         Formula Helpers
+h                       HAL Formula term: Generate a single term of the
+                        HAL basis
+hal9000                 HAL 9000 Quotes
+hal9001                 hal9001
+hal_quotes              HAL9000 Quotes from "2001: A Space Odyssey"
+index_first_copy        Find Copies of Columns
+lassi_fit_module        Rcpp module: lassi_fit_module
+lassi_origami           Single Lasso estimation for cross-validation
+                        with Origami
+lassi_predict           Prediction from a Lassi Model
+make_basis_list         Sort Basis Functions
+make_copy_map           Build Copy Maps
+make_design_matrix      Build HAL Design Matrix
+make_reduced_basis_map
+                        Mass-based reduction of basis functions
+meets_basis             Compute Values of Basis Functions
+predict.SL.hal9001      predict.SL.hal9001
+predict.hal9001         Prediction from HAL fits
+print.formula_hal9001   Print formula_hal9001 object
+print.summary.hal9001   Print Method for Summary Class of HAL fits
+squash_hal_fit          Squash HAL objects
+summary.hal9001         Summary Method for HAL fit objects

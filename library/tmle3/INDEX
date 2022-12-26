@@ -1,0 +1,85 @@
+CF_Likelihood           Counterfactual Likelihood
+ED_from_estimates       Get Empirical Mean of EIFs from Estimates
+LF_base                 Base Class for Defining Likelihood Factors
+LF_derived              Derived Likelihood Factor Estimated from Data +
+                        Other Likelihood values, using sl3.
+LF_emp                  Likelihood Factor Estimated using Empirical
+                        Distribution
+LF_fit                  Likelihood Factor Estimated from Data using
+                        sl3.
+LF_known                Known True Likelihood Factor
+LF_static               Static Likelihood Factor
+LF_targeted             Use a likelihood factor from an existing
+                        targeted likelihood
+Likelihood              Class for Likelihood
+Likelihood_cache        Cache Likelihood values, update those values
+Param_ATC               Additive Effect of Treatment Among the Treated
+Param_ATE               Average Treatment Effect
+Param_ATT               Additive Effect of Treatment Among the Treated
+Param_MSM               Stratified Parameter Estimates via MSM
+Param_TSM               Treatment Specific Mean
+Param_base              Base Class for Defining Parameters
+Param_delta             Delta Method Parameters
+Param_mean              Mean of Outcome Node
+Param_stratified        Stratified Parameter Estimates
+Param_survival          Survival Curve
+Targeted_Likelihood     Targeted Likelihood
+all_ancestors           Helper functions for the NPSEM
+bound                   Bound (Truncate) Likelihoods
+define_lf               Define a Likelihood Factor
+define_param            Define a Parameter
+delta_param_ATE         PAR = Linear Contrast EY1-EY0
+delta_param_OR          Odds Ratio odds(Y1)/odds(Y0)
+delta_param_PAF         PAF = 1 - (1/RR(EY/E0))
+delta_param_PAR         PAR = Linear Contrast EY-EY0
+delta_param_RR          Risk Ratio EY1/EY0
+density_formula         Get and Plot Propensity Scores
+discretize_variable     Discretize Continuous Variable
+plot_vim                Plot results of variable importance analysis
+point_tx_npsem          Helper Functions for Point Treatment
+process_missing         Preprocess Data to Handle Missing Variables
+submodel_logit          Logistic Submodel Fluctuation
+summary_from_estimates
+                        Summarize Estimates
+survival_tx_npsem       Helper Functions for Survival Analysis
+tmle3                   TMLE from a tmle3_Spec object
+tmle3_Fit               TMLE fit object
+tmle3_Node              A Node (set of variables) in an NPSEM
+tmle3_Spec              Defines a TML Estimator (except for the data)
+tmle3_Spec_ATC          Defines a TML Estimator (except for the data)
+tmle3_Spec_ATE          Defines a TML Estimator (except for the data)
+tmle3_Spec_ATT          Defines a TML Estimator (except for the data)
+tmle3_Spec_MSM          Defines a Stratified TML Estimator with MSM
+                        (except for the data)
+tmle3_Spec_OR           Defines a TML Estimator for the Odds Ratio
+tmle3_Spec_PAR          Defines a tmle (minus the data)
+tmle3_Spec_RR           Defines a TML Estimator for the Risk Ratio
+tmle3_Spec_TSM_all      Defines a TML Estimator (except for the data)
+tmle3_Spec_stratified   Defines a Stratified TML Estimator (except for
+                        the data)
+tmle3_Spec_survival     Defines a TML Estimator (except for the data)
+tmle3_Task              Class for Storing Data and NPSEM for TMLE
+tmle3_Update            Defines an update procedure (submodel+loss
+                        function)
+tmle3_Update_survival   Defines an update procedure (submodel+loss
+                        function) for survival data
+tmle3_vim               Compute Variable Importance Measures (VIM) with
+                        any given parameter
+tmle_ATC                All Treatment Specific Means
+tmle_ATE                All Treatment Specific Means
+tmle_ATT                All Treatment Specific Means
+tmle_MSM                Make MSM version of Stratified TML estimator
+                        class
+tmle_OR                 Odds Ratio
+tmle_PAR                PAR and PAF
+tmle_RR                 Risk Ratio
+tmle_TSM_all            All Treatment Specific Means
+tmle_stratified         Stratified version of TML estimator from other
+                        Spec classes
+tmle_survival           Treatment Specific Survival
+train_lf                Manually Train Likelihood Factor The internal
+                        training process for likelihood factors is
+                        somewhat obtuse, so this function does the
+                        steps to manually train one, which is helpful
+                        if you want to use a likelihood factor
+                        independently of a likelihood object

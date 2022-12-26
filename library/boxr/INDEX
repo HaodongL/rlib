@@ -1,0 +1,27 @@
+box_add_description     Add description to a Box file
+box_auth                Authenticate to Box (interactive-app)
+box_auth_on_attach      Authenticate to Box (interactive) automatically
+box_auth_service        Authenticate to Box (service-app)
+box_browse              Open a Box directory or file in browser
+box_collab_create       Create Box collaboration
+box_collab_delete       Delete Box collaboration
+box_collab_get          Get Box collaborations
+box_comment_create      Create/get Box comments
+box_delete_file         Move files within Box, from/to trash directory
+box_dir_create          Create a Box directory
+box_dir_invite          Invite collaboration
+box_dl                  Download/upload files from/to Box
+box_fetch               Download/upload directories from/to Box
+box_fresh_auth          Re-authenticate to Box (interactive-app)
+box_ls                  List files in a Box directory
+box_previous_versions   Get version information
+box_read                Read an R object from a Box file
+box_save                Download/upload an R workspace from/to a Box
+                        file
+box_search              Search Box files
+box_setwd               Get/set Box default working-directory
+box_version_history     Get version information
+box_write               Write an R object to a Box file
+boxr-package            boxr: access the Box API
+boxr_S3_classes         boxr S3 Classes
+boxr_options            Get boxr options

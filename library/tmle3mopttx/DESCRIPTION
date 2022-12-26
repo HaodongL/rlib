@@ -1,0 +1,57 @@
+Package: tmle3mopttx
+Title: Targeted Maximum Likelihood Estimation of the Mean under Optimal
+        Individualized Treatment
+Version: 1.0.0
+Authors@R: c(
+    person("Ivana", "Malenica", email = "imalenica@berkeley.edu",
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-7404-8088")),
+    person("Jeremy", "Coyle", email = "jeremy.coyle@gmail.com",
+           role = c("aut", "cph"),
+           comment = c(ORCID = "0000-0002-9874-6649")),
+    person("Mark", "van der Laan", email = "laan@berkeley.edu",
+           role = c("aut", "ths")),
+    person("Haodong", "Li", email = "haodong_li@berkeley.edu",
+           role = "ctb")
+           )
+Description: This package estimates the optimal individualized treatment rule
+    for the categorical treatment using Super Learner (sl3). In order to avoid
+    nested cross-validation, it uses split-specific estimates of Q and g to
+    estimate the rule as described by Coyle et al. In addition, it provides the
+    Targeted Maximum Likelihood estimates of the mean performance using CV-TMLE
+    under such estimated rules. This is an adapter package for use with the
+    tmle3 framework and the tlverse software ecosystem for Targeted Learning.
+Depends: R (>= 3.3.0)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+LazyLoad: yes
+Imports: R6, uuid, methods, data.table, assertthat, sl3, tmle3, future,
+        dplyr, foreach, stats, hal9001
+Suggests: testthat, knitr, rmarkdown, covr, ggplot2, tidyverse, Rsolnp,
+        nnls, xgboost, speedglm, glmnet, randomForest
+Remotes: github::tlverse/delayed, github::tlverse/origami,
+        github::tlverse/sl3, github::tlverse/tmle3,
+        github::tlverse/tmle3shift
+URL: https://tlverse.org/tmle3mopttx
+BugReports: https://github.com/tlverse/tmle3mopttx/issues
+VignetteBuilder: knitr
+RoxygenNote: 7.2.0
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: tmle3mopttx
+RemoteUsername: tlverse
+RemoteRef: HEAD
+RemoteSha: 3c0e8437af88ca8c54fcec1e953652feaf6c9003
+GithubRepo: tmle3mopttx
+GithubUsername: tlverse
+GithubRef: HEAD
+GithubSHA1: 3c0e8437af88ca8c54fcec1e953652feaf6c9003
+NeedsCompilation: no
+Packaged: 2022-09-17 19:03:41 UTC; haodongli
+Author: Ivana Malenica [aut, cre] (<https://orcid.org/0000-0002-7404-8088>),
+  Jeremy Coyle [aut, cph] (<https://orcid.org/0000-0002-9874-6649>),
+  Mark van der Laan [aut, ths],
+  Haodong Li [ctb]
+Maintainer: Ivana Malenica <imalenica@berkeley.edu>
+Built: R 4.2.1; ; 2022-09-17 19:03:41 UTC; unix

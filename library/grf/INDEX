@@ -1,0 +1,101 @@
+average_late            Average LATE (removed)
+average_partial_effect
+                        Average partial effect (removed)
+average_treatment_effect
+                        Get doubly robust estimates of average
+                        treatment effects.
+best_linear_projection
+                        Estimate the best linear projection of a
+                        conditional average treatment effect.
+boosted_regression_forest
+                        Boosted regression forest
+causal_forest           Causal forest
+causal_survival_forest
+                        Causal survival forest
+custom_forest           Custom forest (removed)
+generate_causal_data    Generate causal forest data
+generate_causal_survival_data
+                        Simulate causal survival data
+get_forest_weights      Given a trained forest and test data, compute
+                        the kernel weights for each test point.
+get_leaf_node           Find the leaf node for a test sample.
+get_sample_weights      Retrieve forest weights (renamed to
+                        get_forest_weights)
+get_scores              Compute doubly robust scores for a GRF forest
+                        object
+get_scores.causal_forest
+                        Compute doubly robust scores for a causal
+                        forest.
+get_scores.causal_survival_forest
+                        Compute doubly robust scores for a causal
+                        survival forest.
+get_scores.instrumental_forest
+                        Doubly robust scores for estimating the average
+                        conditional local average treatment effect.
+get_scores.multi_arm_causal_forest
+                        Compute doubly robust scores for a multi arm
+                        causal forest.
+get_tree                Retrieve a single tree from a trained forest
+                        object.
+instrumental_forest     Intrumental forest
+ll_regression_forest    Local linear forest
+lm_forest               LM Forest
+merge_forests           Merges a list of forests that were grown using
+                        the same data into one large forest.
+multi_arm_causal_forest
+                        Multi-arm causal forest
+multi_regression_forest
+                        Multi-task regression forest
+plot.grf_tree           Plot a GRF tree object.
+plot.rank_average_treatment_effect
+                        Plot the Targeting Operator Characteristic
+                        curve.
+predict.boosted_regression_forest
+                        Predict with a boosted regression forest.
+predict.causal_forest   Predict with a causal forest
+predict.causal_survival_forest
+                        Predict with a causal survival forest forest
+predict.instrumental_forest
+                        Predict with an instrumental forest
+predict.ll_regression_forest
+                        Predict with a local linear forest
+predict.lm_forest       Predict with a lm forest
+predict.multi_arm_causal_forest
+                        Predict with a multi arm causal forest
+predict.multi_regression_forest
+                        Predict with a multi regression forest
+predict.probability_forest
+                        Predict with a probability forest
+predict.quantile_forest
+                        Predict with a quantile forest
+predict.regression_forest
+                        Predict with a regression forest
+predict.survival_forest
+                        Predict with a survival forest
+print.boosted_regression_forest
+                        Print a boosted regression forest
+print.grf               Print a GRF forest object.
+print.grf_tree          Print a GRF tree object.
+print.rank_average_treatment_effect
+                        Print the Rank-Weighted Average Treatment
+                        Effect (RATE).
+print.tuning_output     Print tuning output. Displays average error for
+                        q-quantiles of tuned parameters.
+probability_forest      Probability forest
+quantile_forest         Quantile forest
+rank_average_treatment_effect
+                        Estimate a Rank-Weighted Average Treatment
+                        Effect (RATE).
+regression_forest       Regression forest
+split_frequencies       Calculate which features the forest split on at
+                        each depth.
+survival_forest         Survival forest
+test_calibration        Omnibus evaluation of the quality of the random
+                        forest estimates via calibration.
+tune_causal_forest      Causal forest tuning (removed)
+tune_instrumental_forest
+                        Instrumental forest tuning (removed)
+tune_regression_forest
+                        Regression forest tuning (removed)
+variable_importance     Calculate a simple measure of 'importance' for
+                        each feature.

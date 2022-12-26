@@ -1,0 +1,95 @@
+DSM_GoodsMatrix         A Scored Co-occurrence Matrix of Nouns Denoting
+                        Goods (wordspace)
+DSM_HieroglyphsMatrix   A Small Co-occurrence Matrix (wordspace)
+DSM_SingularValues      Typical Singular Values of a Term-Context
+                        Matrix (wordspace)
+DSM_TermContextMatrix   Example of a Term-Context Co-occurrence Matrix
+                        (wordspace)
+DSM_TermTermMatrix      Example of a Term-Term Co-occurrence Matrix
+                        (wordspace)
+DSM_Vectors             Pre-Compiled DSM Vectors for Selected Words
+                        (wordspace)
+DSM_VerbNounTriples_BNC
+                        Verb-Noun Co-occurrence Frequencies from
+                        British National Corpus (wordspace)
+ESSLLI08_Nouns          Noun Clustering Task from ESSLLI 2008
+                        (wordspace)
+RG65                    Similarity Ratings for 65 Noun Pairs
+                        (wordspace)
+SemCorWSD               SemCor Word Sense Disambiguation Task
+                        (wordspace)
+WordSim353              Similarity Ratings for 351 Noun Pairs
+                        (wordspace)
+as.distmat              Mark an arbitrary matrix as a pre-computed
+                        'dist.matrix' object (wordspace)
+as.dsm                  Create DSM Object From Various R Data
+                        Structures (wordspace)
+as.dsm.TermDocumentMatrix
+                        Create DSM Object From 'tm' Package (wordspace)
+as.matrix.dsm           Extract Matrix from DSM Object (wordspace)
+check.dsm               Validate Internal Structure of DSM Object
+                        (wordspace)
+context.vectors         Compute Bag-of-Words Context Vectors
+                        (wordspace)
+convert.lemma           Transform CWB/Penn-Style Lemmas into Other
+                        Notation Formats (wordspace)
+dim.dsm                 Dimensions of a DSM Object (wordspace)
+dimnames.dsm            Dimnames of a DSM Object (wordspace)
+dist.matrix             Distances/Similarities between Row or Column
+                        Vectors (wordspace)
+dsm                     Create DSM Object Representing a Distributional
+                        Semantic Model (wordspace)
+dsm.canonical.matrix    Canonical Formats for a DSM Co-occurrence
+                        Matrix (wordspace)
+dsm.projection          Reduce Dimensionality of DSM by Subspace
+                        Projection (wordspace)
+dsm.score               Weighting, Scaling and Normalisation of
+                        Co-occurrence Matrix (wordspace)
+eval.clustering         Evaluate DSM on Clustering Task (wordspace)
+eval.multiple.choice    Evaluate DSM on Multiple Choice Task
+                        (wordspace)
+eval.similarity.correlation
+                        Evaluate DSM on Correlation with Similarity
+                        Ratings (wordspace)
+head.dist.matrix        Return the Top Left Corner of a Distance Matrix
+                        (wordspace)
+head.dsm                Return the Top Left Corner of a DSM Matrix
+                        (wordspace)
+match.split             Find Parallel Matches for Values in Groups
+                        (wordspace)
+merge.dsm               Merge Rows or Columns from Different DSM
+                        Objects (wordspace)
+nearest.neighbours      Find Nearest Neighbours in DSM Space
+                        (wordspace)
+normalize.rows          Normalize Rows or Columns of Matrix to Unit
+                        Length (wordspace)
+pair.distances          Semantic Distances Between Word Pairs
+                        (wordspace)
+plot.dist.matrix        Plotting Distance Matrices (wordspace)
+plot.eval.similarity.correlation
+                        Printing and Plotting Similarity Correlation
+                        Evaluation Results (wordspace)
+print.dsm               Print Information About DSM Object (wordspace)
+rbind.dsm               Combine DSM Objects by Rows and Columns
+                        (wordspace)
+read.dsm.matrix         Load DSM Matrix from File (wordspace)
+read.dsm.triplet        Load DSM Data from Triplet Representation
+                        (wordspace)
+read.dsm.ucs            Load Raw DSM Data from Disk Files in UCS Export
+                        Format (wordspace)
+rowNorms                Compute Norms of Row and Column Vectors of a
+                        Matrix (wordspace)
+rsvd                    Randomized Singular Value Decomposition
+                        (wordspace)
+scaleMargins            Scale Rows and/or Columns of a Matrix
+                        (wordspace)
+signcount               Efficiently Count Positive, Negative and Zero
+                        Values (wordspace)
+subset.dsm              Subsetting Distributional Semantic Models
+                        (wordspace)
+t.dsm                   Swap the Rows and Columns of a DSM Object
+                        (wordspace)
+wordspace-package       Distributional Semantic Models in R (wordspace)
+wordspace.openmp        Control multi-core processing in wordspace
+                        functions (wordspace)
+write.dsm.matrix        Export DSM Matrix to File (wordspace)

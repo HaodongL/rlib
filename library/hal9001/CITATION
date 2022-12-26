@@ -1,0 +1,29 @@
+citHeader("Please cite the following works when using the 'hal9001' software
+           package, including both the software tool and any articles
+           describing the software package and/or statistical methodology.")
+
+year <- format(Sys.Date(), "%Y")
+note <- sprintf("R package version %s", meta$Version)
+
+bibentry(bibtype = "Manual",
+         title = "{hal9001}: The scalable highly adaptive lasso",
+         author = c(person("Jeremy R", "Coyle"),
+                    person("Nima S", "Hejazi"),
+                    person("Rachael V", "Phillips"),
+                    person("Lars WP", "van der Laan"),
+                    person("Mark J", "van der Laan")),
+         year = year,
+         note = note,
+         doi = "10.5281/zenodo.3558313",
+         url = "https://github.com/tlverse/hal9001")
+
+bibentry(bibtype = "Article",
+         title = "{hal9001}: Scalable highly adaptive lasso regression in {R}",
+         author = c(person("Nima S", "Hejazi"),
+                    person("Jeremy R", "Coyle"),
+                    person("Mark J", "van der Laan")),
+         year = "2020",
+         journal = "Journal of Open Source Software",
+         publisher = "The Open Journal",
+         doi = "10.21105/joss.02526",
+         url = "https://doi.org/10.21105/joss.02526")

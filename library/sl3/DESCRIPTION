@@ -1,0 +1,76 @@
+Package: sl3
+Title: Pipelines for Machine Learning and Super Learning
+Version: 1.4.4
+Authors@R: c(
+    person("Jeremy", "Coyle", email = "jeremyrcoyle@gmail.com",
+           role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0002-9874-6649")),
+    person("Nima", "Hejazi", email = "nh@nimahejazi.org",
+           role = "aut",
+           comment = c(ORCID = "0000-0002-7127-2789")),
+    person("Oleg", "Sofrygin", email="oleg.sofrygin@gmail.com",
+           role = "aut",
+           comment = c(ORCID = "0000-0002-9539-8853")),
+    person("Ivana", "Malenica", email = "imalenica@berkeley.edu",
+           role = "aut",
+           comment = c(ORCID = "0000-0002-7404-8088")),
+    person("Rachael", "Phillips", email = "rachaelvphillips@berkeley.edu",
+           role = "aut",
+           comment = c(ORCID = "0000-0002-8474-591X")),
+    person("Weixin", "Cai", email = "wcai@berkeley.edu",
+           role = "ctb",
+           comment = c(ORCID = "0000-0003-2680-3066")),
+    person("Yulun", "Wu", email = "yulun_wu@berkeley.edu",
+           role = "ctb"),
+    person("Hugh", "Jiang", email = "hugh_jiang@berkeley.edu",
+           role = "ctb")
+  )
+Maintainer: Jeremy Coyle <jeremyrcoyle@gmail.com>
+Description: A modern implementation of the Super Learner prediction algorithm,
+    coupled with a general-purpose framework for composing arbitrary pipelines
+    for machine learning tasks.
+Depends: R (>= 3.1.0)
+Imports: data.table, assertthat, origami (>= 1.0.3), R6, uuid, BBmisc,
+        stats, delayed, utils, methods, ggplot2, digest, Rdpack,
+        imputeMissings, dplyr, caret, ROCR
+Suggests: testthat, rmarkdown, devtools, R.rsp, future, knitr, stringr,
+        reticulate, rgl, rJava, arm, bartMachine, cvAUC, e1071, earth,
+        polspline, forecast, glmnet, grf, gbm, hal9001 (>= 0.4.0), h2o,
+        keras, kerasR, nloptr, nnls, randomForest, ranger, rpart,
+        Rsolnp, rugarch, speedglm, SuperLearner, tsDyn, xgboost,
+        lightgbm, dbarts, gam (>= 1.15.0), haldensify (>= 0.1.5), mgcv,
+        hts, GA
+Remotes: github::tlverse/origami, github::tlverse/hal9001@devel,
+        github::nhejazi/haldensify
+License: GPL-3
+Language: en-US
+URL: https://tlverse.org/sl3
+BugReports: https://github.com/tlverse/sl3/issues
+Encoding: UTF-8
+LazyData: yes
+LazyLoad: yes
+VignetteBuilder: knitr, R.rsp
+Roxygen: list(markdown = TRUE, old_usage = TRUE, r6 = FALSE)
+RoxygenNote: 7.1.2
+RdMacros: Rdpack
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: sl3
+RemoteUsername: tlverse
+RemoteRef: HEAD
+RemoteSha: 6544257626080f96fb37595a8a1f77a7c80918d1
+GithubRepo: sl3
+GithubUsername: tlverse
+GithubRef: HEAD
+GithubSHA1: 6544257626080f96fb37595a8a1f77a7c80918d1
+NeedsCompilation: no
+Packaged: 2022-09-17 19:01:59 UTC; haodongli
+Author: Jeremy Coyle [aut, cre, cph] (<https://orcid.org/0000-0002-9874-6649>),
+  Nima Hejazi [aut] (<https://orcid.org/0000-0002-7127-2789>),
+  Oleg Sofrygin [aut] (<https://orcid.org/0000-0002-9539-8853>),
+  Ivana Malenica [aut] (<https://orcid.org/0000-0002-7404-8088>),
+  Rachael Phillips [aut] (<https://orcid.org/0000-0002-8474-591X>),
+  Weixin Cai [ctb] (<https://orcid.org/0000-0003-2680-3066>),
+  Yulun Wu [ctb],
+  Hugh Jiang [ctb]
+Built: R 4.2.1; ; 2022-09-17 19:02:00 UTC; unix

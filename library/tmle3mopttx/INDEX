@@ -1,0 +1,33 @@
+LF_rule                 Dynamic Likelihood Factor
+Optimal_Rule_Q_learning
+                        Learns the Optimal Rule given a tmle_task and
+                        likelihood, using Q learning.
+Optimal_Rule_Revere     Learning the Optimal Rule using the Revere
+                        framework
+Param_TSM_name          Treatment Specific Mean with names specifying
+                        the covariates the rule depends on.
+Q_learning              Q learning wrapper
+create_mv_learners      Make SL of multivariate learners
+data_bin                Mock data set with Binary Treatment
+data_cat                Mock data set with Categorical Treatment
+data_cat_realistic      Mock data set with Categorical Treatment and
+                        rare treatment
+data_cat_vim            Mock data set for Variable Importance Analysis
+                        with Categorical Treatment
+normalize_rows          Normalize rows
+tmle3_Spec_mopttx_Q     Defines the Mean Under the Optimal
+                        Individualized Rule with Categorical Treatment,
+                        estimated using Q learning (single step)
+tmle3_Spec_mopttx_blip_revere
+                        TMLE for the Mean Under the Optimal
+                        Individualized Rule
+tmle3_Spec_mopttx_vim   Variable Importance with the Mean Under the
+                        Optimal Individualized Rule
+tmle3_mopttx_Q          Mean under the Optimal Individualized Treatment
+                        Rule, using Q learning
+tmle3_mopttx_blip_revere
+                        Mean under the Optimal Individualized Treatment
+                        Rule
+tmle3_mopttx_vim        Mean under the Optimal Individualized Treatment
+                        Rule
+vals_from_factor        Get factors

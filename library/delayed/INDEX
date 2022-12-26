@@ -1,0 +1,12 @@
+Delayed                 Delayed class that manages dependencies and
+                        computes when necessary
+FutureJob               Future Delayed Jobs
+Scheduler               Scheduler class that orders compute tasks and
+                        dispatches tasks to workers
+SequentialJob           Sequential Delayed Jobs
+delayed                 Generates Delayed Version of an Expression
+eval_delayed            Helper Function to Evaluate Delayed
+find_delayed_error      Find error in delayed chain
+plot.Delayed            Plot Method for Delayed Objects
+plot_delayed_shiny      Animated Representation a Task Dependency
+                        Structure

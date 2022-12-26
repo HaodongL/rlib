@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Frederik Aust" />
+
+
+<title>Extending apa_print()</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Extending apa_print()</h1>
+<h4 class="author">Frederik Aust</h4>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;papaja&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Lade nötiges Paket: tinylabels</span></span></code></pre></div>
+<p>Here, we provide a brief overview of issues to consider when
+implementing a new method for <code>apa_print()</code>, a convenience
+function to facilitate reporting of results in accordance with APA
+reporting guidelines. If you consider adding a new method, please review
+our brief <a href="https://github.com/crsh/papaja/blob/master/.github/CONTRIBUTING.md">contributing
+guidelines</a> and <a href="https://github.com/crsh/papaja/blob/master/CODE_OF_CONDUCT.md">code
+of conduct</a>.</p>
+<div id="deciding-on-a-new-method" class="section level2">
+<h2>Deciding on a new method</h2>
+<p>If you are reporting the results of a statistical analysis that is
+not yet supported by <code>apa_print()</code> you probably have a good
+motivation and possibly prior work to build on. If you are just looking
+for a way to contribute to, take a look at the <a href="https://github.com/crsh/papaja/issues">open issues</a> for
+inspiration.</p>
+<p><code>apa_print()</code> is a generic, meaning it can, in principle,
+work on any output object with a class that is specific enough to
+purposefully extract the results of the analysis. For example, objects
+of class <code>htest</code>, as returned by <code>t.test()</code>,
+<code>cor.test()</code>, <code>prop.test()</code>, etc., are named lists
+that follow a loose convention about the named objects they contain.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>t_test_example <span class="ot">&lt;-</span> <span class="fu">t.test</span>(extra <span class="sc">~</span> group, <span class="at">data =</span> sleep)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(t_test_example)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;htest&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(t_test_example)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; List of 10</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ statistic  : Named num -1.86</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr &quot;t&quot;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ parameter  : Named num 17.8</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr &quot;df&quot;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ p.value    : num 0.0794</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ conf.int   : num [1:2] -3.365 0.205</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..- attr(*, &quot;conf.level&quot;)= num 0.95</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ estimate   : Named num [1:2] 0.75 2.33</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;mean in group 1&quot; &quot;mean in group 2&quot;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ null.value : Named num 0</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr &quot;difference in means between group 1 and group 2&quot;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ stderr     : num 0.849</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ alternative: chr &quot;two.sided&quot;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ method     : chr &quot;Welch Two Sample t-test&quot;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ data.name  : chr &quot;extra by group&quot;</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;class&quot;)= chr &quot;htest&quot;</span></span></code></pre></div>
+<p>Hence, if we pass an <code>htest</code> object to
+<code>apa_print()</code> the function expects there to be named elements
+in the list, such as <code>statistic</code>, <code>estimate</code>, or
+<code>p.value</code>. These expectations are reflected in the workings
+of the <code>apa_print.htest()</code> method. Objects of less specific
+classes, such as <code>list</code> or <code>data.frame</code> cannot be
+supported, because we cannot make any useful assumptions about their
+structure.</p>
+</div>
+<div id="default-structure-of-output" class="section level2">
+<h2>Default structure of output</h2>
+<p>Objects returned by <code>apa_print()</code> are of class
+<code>apa_results</code>, a named list with four elements:</p>
+<pre><code>#&gt; $estimate
+#&gt; NULL
+#&gt; 
+#&gt; $statistic
+#&gt; NULL
+#&gt; 
+#&gt; $full_result
+#&gt; NULL
+#&gt; 
+#&gt; $table
+#&gt; NULL
+#&gt; 
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;apa_results&quot; &quot;list&quot;</code></pre>
+<p>To illustrate how <code>apa_results</code> objects are populated,
+let’s look at the output of <code>apa_print.lm()</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data from Dobson (1990), p. 9.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ctl <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">4.17</span>, <span class="fl">5.58</span>, <span class="fl">5.18</span>, <span class="fl">6.11</span>, <span class="fl">4.50</span>, <span class="fl">4.61</span>, <span class="fl">5.17</span>, <span class="fl">4.53</span>, <span class="fl">5.33</span>, <span class="fl">5.14</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>trt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">4.81</span>, <span class="fl">4.17</span>, <span class="fl">4.41</span>, <span class="fl">3.59</span>, <span class="fl">5.87</span>, <span class="fl">3.83</span>, <span class="fl">6.03</span>, <span class="fl">4.89</span>, <span class="fl">4.32</span>, <span class="fl">4.69</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>group <span class="ot">&lt;-</span> <span class="fu">gl</span>(<span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Ctl&quot;</span>, <span class="st">&quot;Trt&quot;</span>))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>weight <span class="ot">&lt;-</span> <span class="fu">c</span>(ctl, trt)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight <span class="sc">~</span> group)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>lm_fit_apa <span class="ot">&lt;-</span> <span class="fu">apa_print</span>(lm_fit)</span></code></pre></div>
+<p>The <code>estimate</code> element of the returned
+<code>apa_results</code>-list itself contains a named list with
+estimated parameters—in this case regression coefficients—and
+corresponding confidence intervals for the model. The names of the list
+correspond to the names of the predictors.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lm_fit_apa<span class="sc">$</span>estimate</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $Intercept</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = 5.03$, 95\\% CI $[4.57, 5.49]$&quot;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $groupTrt</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = -0.37$, 95\\% CI $[-1.03, 0.28]$&quot;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $modelfit</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $modelfit$r2</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$R^2 = .07$, 90\\% CI $[0.00, 0.33]$&quot;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $modelfit$r2_adj</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$R^2_{adj} = .02$&quot;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $modelfit$aic</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$\\mathrm{AIC} = 46.18$&quot;</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $modelfit$bic</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$\\mathrm{BIC} = 49.16$&quot;</span></span></code></pre></div>
+<p>The <code>estimate</code> list may contain additional elements, such
+as the list <code>modelfit</code>, that contains quantitative estimates
+of the model fit.</p>
+<p>The <code>statistic</code> element of the returned
+<code>apa_results</code> list contains a named list with the same
+structure as <code>estimate</code>. Instead of parameter estimates,
+<code>statistic</code> contains the corresponding inferential test
+statistics, such as significance tests or Bayesian model
+comparisons.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lm_fit_apa<span class="sc">$</span>statistic</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $Intercept</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$t(18) = 22.85$, $p &lt; .001$&quot;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $groupTrt</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$t(18) = -1.19$, $p = .249$&quot;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $modelfit</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $modelfit$r2</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$F(1, 18) = 1.42$, $p = .249$&quot;</span></span></code></pre></div>
+<p>Note that the <code>statistics</code> list misses elements for the
+information criteria <code>AIC</code> and <code>BIC</code>. Because no
+inferential test statistics on the information criteria are available,
+it is fine to simply drop those elements.</p>
+<p>The <code>full_results</code> element is a named list that simply
+combines the results of <code>estimate</code> and <code>statistic</code>
+for convenience in reporting.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lm_fit_apa<span class="sc">$</span>full_result</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $Intercept</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = 5.03$, 95\\% CI $[4.57, 5.49]$, $t(18) = 22.85$, $p &lt; .001$&quot;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $groupTrt</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = -0.37$, 95\\% CI $[-1.03, 0.28]$, $t(18) = -1.19$, $p = .249$&quot;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $modelfit</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $modelfit$r2</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$R^2 = .07$, 90\\% CI $[0.00, 0.33]$, $F(1, 18) = 1.42$, $p = .249$&quot;</span></span></code></pre></div>
+<p>Finally, the <code>table</code> element contains a
+<code>data.frame</code> of class <code>apa_results_table</code> that
+summarizes the results. In essence this is simply a regular
+<code>data.frame</code> that follows the <a href="https://www.tidymodels.org/learn/develop/broom/#glossary">column-naming
+conventions</a> used in <a href="https://cran.r-project.org/package=broom"><strong>broom</strong></a>
+but allows for prettier printing of variable labels.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lm_fit_apa<span class="sc">$</span>table</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame with 6 labelled columns:</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        term estimate      conf.int statistic df p.value</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Intercept     5.03  [4.57, 5.49]     22.85 18  &lt; .001</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  GroupTrt    -0.37 [-1.03, 0.28]     -1.19 18    .249</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; term     : Predictor </span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimate : $b$ </span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; conf.int : 95\\% CI </span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; statistic: $t$ </span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; df       : $\\mathit{df}$ </span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; p.value  : $p$</span></span></code></pre></div>
+<p>For more complex analyses <code>table</code> may contain a named list
+of <code>apa_result_table</code>s. We use <strong>tinylabels</strong> to
+set variable labels. These variable labels are attributes attached to
+each column and contain a typeset label for the respective column.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(&quot;tinylabels&quot;)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>letters</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [20] &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">variable_label</span>(letters) <span class="ot">&lt;-</span> <span class="st">&quot;Letters of the alphabet&quot;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">variable_label</span>(letters)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Letters of the alphabet&quot;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>letters</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Variable label     : Letters of the alphabet</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot;</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [20] &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(letters)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  &#39;tiny_labelled&#39; chr [1:26] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; ...</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;label&quot;)= chr &quot;Letters of the alphabet&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>lm_fit_apa<span class="sc">$</span>table<span class="sc">$</span>statistic</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Variable label     : $t$</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;22.85&quot; &quot;-1.19&quot;</span></span></code></pre></div>
+<p>Variable labels are automatically used by <code>apa_table()</code>
+and plotting functions from the <code>apa_factorial_plot()</code>-family
+to create sensible default labels. If a label is enveloped in
+<code>$</code> it may contain LaTeX math syntax, which is automatically
+converted to R expressions using <a href="https://cran.r-project.org/package=latex2exp"><strong>latex2exp</strong></a>
+for plotting.</p>
+<p>Any new <code>apa_print()</code> method should output an object of
+this basic structure.</p>
+</div>
+<div id="typesetting-numeric-information" class="section level2">
+<h2>Typesetting numeric information</h2>
+<p><code>apa_results</code> do not contain numeric information. Rather
+the numeric information has been processed for printing in accordance
+with APA guidelines. There are several <strong>papaja</strong>-functions
+to facilitate the typesetting. <code>apa_num()</code> is a flexible
+general purpose function that wraps <code>formatC()</code> and can be
+used to round, set decimal as well as thousands separators, or remove
+leading zeros.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>) <span class="sc">*</span> <span class="fl">1e4</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apa_num</span>(x)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;-17,402.11&quot; &quot;-3,444.68&quot;  &quot;-14,935.10&quot;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">apa_num</span>(x, <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">big.mark =</span> <span class="st">&quot;.&quot;</span>, <span class="at">decimal.mark =</span> <span class="st">&quot;,&quot;</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;-17.402,114&quot; &quot;-3.444,676&quot;  &quot;-14.935,103&quot;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">apa_num</span>(<span class="cn">Inf</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$\\infty$&quot;</span></span></code></pre></div>
+<p><code>apa_p()</code> is a wrapper for <code>apa_num()</code> that
+sets appropriate defaults to report <em>p</em> values in accordance with
+APA guidelines.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apa_p</span>(<span class="fu">c</span>(<span class="fl">0.0001</span>, <span class="fl">0.05</span>, <span class="fl">0.99999</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;&lt; .001&quot; &quot;.050&quot;   &quot;&gt; .999&quot;</span></span></code></pre></div>
+<p>The internal function <code>apa_df()</code> is geared towards
+typesetting degrees of freedom.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apa_df</span>(<span class="fu">c</span>(<span class="dv">12</span>, <span class="fl">12.485</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;12&quot;    &quot;12.48&quot;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">apa_df</span>(12L)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;12&quot;</span></span></code></pre></div>
+<p>Finally, <code>apa_interval()</code> can be used to typeset interval
+estimates.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apa_interval</span>(<span class="fu">rnorm</span>(<span class="dv">2</span>), <span class="at">conf.int =</span> <span class="fl">0.95</span>, <span class="at">interval_type =</span> <span class="st">&quot;CI&quot;</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;95\\% CI [-0.24, -0.38]&quot;</span></span></code></pre></div>
+<p>Again, there are two wrappers that set appropriate defaults to
+typeset frequentist confidence intervals and Bayesian highest-density
+intervals.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apa_confint</span>(<span class="fu">rnorm</span>(<span class="dv">2</span>), <span class="at">conf.int =</span> <span class="fl">0.95</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;95\\% CI [-0.63, 0.47]&quot;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">apa_hdint</span>(<span class="fu">rnorm</span>(<span class="dv">2</span>), <span class="at">conf.int =</span> <span class="fl">0.95</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;95\\% HDI [0.96, -1.50]&quot;</span></span></code></pre></div>
+</div>
+<div id="typesetting-model-terms" class="section level2">
+<h2>Typesetting model terms</h2>
+<p>When creating named lists from terms, these terms names should use
+<code>_</code> as separator, and be valid R names. Adhering to these
+conventions ensures that <code>apa_results</code> can conveniently be
+indexed using the <code>$</code> operator.</p>
+<p>To facilitate the generation of list names, <strong>papaja</strong>
+provides the internal function <code>sanitize_terms()</code>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mod_terms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;(Intercept)&quot;</span>, <span class="st">&quot;Factor A&quot;</span>, <span class="st">&quot;Factor B&quot;</span>,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Factor A:Factor B&quot;</span>, <span class="st">&quot;scale(Factor A)&quot;</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sanitize_terms</span>(mod_terms, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Intercept&quot;         &quot;Factor_A&quot;          &quot;Factor_B&quot;         </span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;Factor_A_Factor_B&quot; &quot;z_Factor_A&quot;</span></span></code></pre></div>
+<p>While these sanitized terms are well suited to name R objects, they
+are not ideal for reporting. To facilitate typesetting term names for
+reporting, there is another internal function
+<code>beautify_terms()</code>.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">beautify_terms</span>(mod_terms, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Intercept&quot;                   &quot;Factor A&quot;                   </span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;Factor B&quot;                    &quot;Factor A $\\times$ Factor B&quot;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;Factor A&quot;</span></span></code></pre></div>
+</div>
+<div id="internal-workflow" class="section level2">
+<h2>Internal workflow</h2>
+<div id="method-dispatch" class="section level3">
+<h3>Method dispatch</h3>
+<p>As with <code>lm</code> objects, it is often the case that the
+objects, as returned by the analysis function, may not contain all
+information necessary to populate the lists described above. For
+example, to obtain inferential statistics it may be necessary to call
+<code>summary()</code>.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>npk_aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(yield <span class="sc">~</span> block <span class="sc">+</span> N <span class="sc">*</span> P <span class="sc">*</span> K, npk)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>npk_aov</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    aov(formula = yield ~ block + N * P * K, data = npk)</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Terms:</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                    block        N        P        K      N:P      N:K      P:K</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Sum of Squares  343.2950 189.2817   8.4017  95.2017  21.2817  33.1350   0.4817</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Deg. of Freedom        5        1        1        1        1        1        1</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 Residuals</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Sum of Squares   185.2867</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Deg. of Freedom        12</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 3.929447</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 out of 13 effects not estimable</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimated effects may be unbalanced</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(npk_aov)</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Df Sum Sq Mean Sq F value  Pr(&gt;F)   </span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; block        5  343.3   68.66   4.447 0.01594 * </span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; N            1  189.3  189.28  12.259 0.00437 **</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; P            1    8.4    8.40   0.544 0.47490   </span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; K            1   95.2   95.20   6.166 0.02880 * </span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; N:P          1   21.3   21.28   1.378 0.26317   </span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; N:K          1   33.1   33.14   2.146 0.16865   </span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; P:K          1    0.5    0.48   0.031 0.86275   </span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals   12  185.3   15.44                   </span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+<p>This is why there are usually multiple
+<code>apa_print()</code>-methods that are called subsequently to make
+the function both flexible and convenient. For convenience,
+<code>apa_print.aov()</code> calls <code>summary()</code> with its
+default arguments and passes the result onto
+<code>apa_print.summary.aov()</code>.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>papaja<span class="sc">:::</span>apa_print.aov</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; function (x, estimate = getOption(&quot;papaja.estimate_anova&quot;, &quot;ges&quot;), </span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     observed = NULL, intercept = FALSE, mse = TRUE, in_paren = FALSE, </span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ...) </span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; {</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     apa_print(summary(x), .x = x, intercept = intercept, estimate = estimate, </span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         mse = mse, observed = observed, in_paren = in_paren, </span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         ...)</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; }</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;bytecode: 0x7fc10c899ac0&gt;</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;environment: namespace:papaja&gt;</span></span></code></pre></div>
+<p>This approach also ensures that a variety of object types are
+supported while minimizing code redundancy.</p>
+</div>
+<div id="restructuring-results" class="section level3">
+<h3>Restructuring results</h3>
+<p>The internals of <code>apa_print()</code> heavily rely on <a href="https://cran.r-project.org/package=broom"><strong>broom</strong></a>,
+a package to conveniently restructure the output of analysis functions
+into tidy <code>data.frame</code>s. The objects are often processed
+using <code>broom::tidy()</code>, and <code>broom::glance()</code> if
+necessary, before being modified further to create the contents of the
+<code>table</code> element.</p>
+<p>Once the results table has been assembled, numeric values have been
+typeset, and variable labels have been assigned
+<code>glue_apa_results()</code> can be used to create an
+<code>apa_results</code> object according to the above specifications.
+Consider the following example of an <code>lm</code>-object. First we
+<code>tidy()</code> and <code>glance()</code> the object to obtain tidy
+results. We than typeset all “special” numerical results, that is, all
+results that would not be typeset appropriately by applying
+<code>apa_num()</code> with its default settings. Moreover, we combine
+the separate columns for lower and upper confidence interval bounds into
+one column <code>conf.int</code> which contains the complete confidence
+interval.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> cyl <span class="sc">+</span> wt, mtcars)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidy and typeset output</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;broom&quot;</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>tidy_lm_fit <span class="ot">&lt;-</span> <span class="fu">tidy</span>(lm_fit, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>tidy_lm_fit<span class="sc">$</span>p.value <span class="ot">&lt;-</span> <span class="fu">apa_p</span>(tidy_lm_fit<span class="sc">$</span>p.value)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>tidy_lm_fit<span class="sc">$</span>conf.int <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">apa_confint</span>(tidy_lm_fit[, <span class="fu">c</span>(<span class="st">&quot;conf.low&quot;</span>, <span class="st">&quot;conf.high&quot;</span>)]))</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tidy_lm_fit)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; tibble [3 × 8] (S3: tbl_df/tbl/data.frame)</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ term     : chr [1:3] &quot;(Intercept)&quot; &quot;cyl&quot; &quot;wt&quot;</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ estimate : num [1:3] 39.69 -1.51 -3.19</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ std.error: num [1:3] 1.715 0.415 0.757</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ statistic: num [1:3] 23.14 -3.64 -4.22</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ p.value  : chr [1:3] &quot;&lt; .001&quot; &quot;.001&quot; &quot;&lt; .001&quot;</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ conf.low : num [1:3] 36.18 -2.36 -4.74</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ conf.high: num [1:3] 43.19 -0.66 -1.64</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ conf.int : chr [1:3] &quot;[36.18, 43.19]&quot; &quot;[-2.36, -0.66]&quot; &quot;[-4.74, -1.64]&quot;</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>glance_lm_fit <span class="ot">&lt;-</span> <span class="fu">glance</span>(lm_fit)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>glance_lm_fit<span class="sc">$</span>r.squared <span class="ot">&lt;-</span> <span class="fu">apa_num</span>(glance_lm_fit<span class="sc">$</span>r.squared, <span class="at">gt1 =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>glance_lm_fit<span class="sc">$</span>p.value <span class="ot">&lt;-</span> <span class="fu">apa_p</span>(glance_lm_fit<span class="sc">$</span>p.value)</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>glance_lm_fit<span class="sc">$</span>df <span class="ot">&lt;-</span> <span class="fu">apa_df</span>(glance_lm_fit<span class="sc">$</span>df)</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>glance_lm_fit<span class="sc">$</span>df.residual <span class="ot">&lt;-</span> <span class="fu">apa_df</span>(glance_lm_fit<span class="sc">$</span>df.residual)</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(glance_lm_fit)</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; tibble [1 × 12] (S3: tbl_df/tbl/data.frame)</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ r.squared    : chr &quot;.83&quot;</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ adj.r.squared: num 0.819</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ sigma        : num 2.57</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ statistic    : Named num 70.9</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr &quot;value&quot;</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ p.value      : chr &quot;&lt; .001&quot;</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ df           : chr &quot;2&quot;</span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ logLik       : num -74</span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ AIC          : num 156</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ BIC          : num 162</span></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ deviance     : num 191</span></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ df.residual  : chr &quot;29&quot;</span></span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ nobs         : int 32</span></span></code></pre></div>
+<p>Next, we typeset the remaining numeric columns and assign informative
+variable labels:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tidy_lm_fit <span class="ot">&lt;-</span> <span class="fu">apa_num</span>(tidy_lm_fit)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">variable_labels</span>(tidy_lm_fit) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">term =</span> <span class="st">&quot;Term&quot;</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  , <span class="at">estimate =</span> <span class="st">&quot;$b$&quot;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  , <span class="at">statistic =</span> <span class="fu">paste0</span>(<span class="st">&quot;$t(&quot;</span>, glance_lm_fit<span class="sc">$</span>df.residual, <span class="st">&quot;)&quot;</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  , <span class="at">p.value =</span> <span class="st">&quot;$p$&quot;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  , <span class="at">conf.int =</span> <span class="st">&quot;95% CI&quot;</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>glance_lm_fit <span class="ot">&lt;-</span> <span class="fu">apa_num</span>(glance_lm_fit)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="fu">variable_labels</span>(glance_lm_fit) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">r.squared =</span> <span class="st">&quot;$R^2$&quot;</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  , <span class="at">statistic =</span> <span class="st">&quot;$F$&quot;</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  , <span class="at">p.value =</span> <span class="st">&quot;$p$&quot;</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  , <span class="at">AIC =</span> <span class="st">&quot;$</span><span class="sc">\\</span><span class="st">mathrm{AIC}$&quot;</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Now we can use <code>glue_apa_results()</code> to create the output
+object. In doing so, we use the internal function
+<code>construct_glue()</code> to automatically determine the correct
+“glue” of the reporting string. Let’s first examine the glue.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>papaja<span class="sc">:::</span><span class="fu">construct_glue</span>(tidy_lm_fit, <span class="st">&quot;estimate&quot;</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$&lt;&lt;svl(estimate)&gt;&gt; = &lt;&lt;estimate&gt;&gt;$, &lt;&lt;svl(conf.int, use_math = TRUE)&gt;&gt; $&lt;&lt;conf.int&gt;&gt;$&quot;</span></span></code></pre></div>
+<p>The character string contains a combination of text and
+to-be-evaluated R code enveloped in <code>&lt;&lt;</code> and
+<code>&gt;&gt;</code>. All variable names (e.g. <code>estimate</code>)
+are assumed to be columns of <code>x</code> (here
+<code>tidy_lm_fit</code>) or any additional object passed to
+<code>glue_apa_results()</code> via <code>...</code>. <code>svl()</code>
+is a function that returns a column variable label but, by default,
+remove the math-environment tags (<code>$</code>) as these are not
+needed here.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>lm_results <span class="ot">&lt;-</span> <span class="fu">glue_apa_results</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> tidy_lm_fit</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    , <span class="at">est_glue =</span> papaja<span class="sc">:::</span><span class="fu">construct_glue</span>(tidy_lm_fit, <span class="st">&quot;estimate&quot;</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    , <span class="at">stat_glue =</span> papaja<span class="sc">:::</span><span class="fu">construct_glue</span>(tidy_lm_fit, <span class="st">&quot;statistic&quot;</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    , <span class="at">term_names =</span> <span class="fu">sanitize_terms</span>(tidy_lm_fit<span class="sc">$</span>term)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>lm_results</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $estimate</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $estimate$Intercept</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = 39.69$, 95% CI $[36.18, 43.19]$&quot;</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $estimate$cyl</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = -1.51$, 95% CI $[-2.36, -0.66]$&quot;</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $estimate$wt</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = -3.19$, 95% CI $[-4.74, -1.64]$&quot;</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $statistic</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $statistic$Intercept</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$t(29) = 23.14$, $p &lt; .001$&quot;</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $statistic$cyl</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$t(29) = -3.64$, $p = .001$&quot;</span></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $statistic$wt</span></span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$t(29) = -4.22$, $p &lt; .001$&quot;</span></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $full_result</span></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $full_result$Intercept</span></span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = 39.69$, 95% CI $[36.18, 43.19]$, $t(29) = 23.14$, $p &lt; .001$&quot;</span></span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $full_result$cyl</span></span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = -1.51$, 95% CI $[-2.36, -0.66]$, $t(29) = -3.64$, $p = .001$&quot;</span></span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $full_result$wt</span></span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = -3.19$, 95% CI $[-4.74, -1.64]$, $t(29) = -4.22$, $p &lt; .001$&quot;</span></span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $table</span></span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        term estimate std.error statistic p.value conf.low conf.high</span></span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Intercept    39.69      1.71     23.14  &lt; .001    36.18     43.19</span></span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       Cyl    -1.51      0.41     -3.64    .001    -2.36     -0.66</span></span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        Wt    -3.19      0.76     -4.22  &lt; .001    -4.74     -1.64</span></span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         conf.int</span></span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 [36.18, 43.19]</span></span>
+<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 [-2.36, -0.66]</span></span>
+<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 [-4.74, -1.64]</span></span>
+<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
+<span id="cb23-53"><a href="#cb23-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;apa_results&quot; &quot;list&quot;</span></span></code></pre></div>
+<p>If we need to add additional information to this output, we can use
+<code>add_glue_to_apa_results()</code>. This function takes an existing
+output and adds new strings to a specific sublist. So, let’s add some
+model fit information to the output.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add_glue_to_apa_results</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">.x =</span> glance_lm_fit</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  , <span class="at">container =</span> lm_results</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  , <span class="at">sublist =</span> <span class="st">&quot;modelfit&quot;</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  , <span class="at">est_glue =</span> <span class="fu">c</span>(</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">r2 =</span> <span class="st">&quot;$&lt;&lt;svl(r.squared)&gt;&gt; = &lt;&lt;r.squared&gt;&gt;$&quot;</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>      , <span class="at">aic =</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  , <span class="at">stat_glue =</span> <span class="fu">c</span>(</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">r2 =</span> papaja<span class="sc">:::</span><span class="fu">construct_glue</span>(glance_lm_fit, <span class="st">&quot;statistic&quot;</span>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>      , <span class="at">aic =</span> <span class="st">&quot;$&lt;&lt;svl(AIC)&gt;&gt; = &lt;&lt;AIC&gt;&gt;$&quot;</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $estimate</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $estimate$Intercept</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = 39.69$, 95% CI $[36.18, 43.19]$&quot;</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $estimate$cyl</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = -1.51$, 95% CI $[-2.36, -0.66]$&quot;</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $estimate$wt</span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = -3.19$, 95% CI $[-4.74, -1.64]$&quot;</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $estimate$modelfit</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            r2 </span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &quot;$R^2 = .83$&quot; </span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $statistic</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $statistic$Intercept</span></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$t(29) = 23.14$, $p &lt; .001$&quot;</span></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $statistic$cyl</span></span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$t(29) = -3.64$, $p = .001$&quot;</span></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $statistic$wt</span></span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$t(29) = -4.22$, $p &lt; .001$&quot;</span></span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $statistic$modelfit</span></span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $statistic$modelfit$r2</span></span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$F(2, 29) = 70.91$, $p &lt; .001$&quot;</span></span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $statistic$modelfit$aic</span></span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$\\mathrm{AIC} = 156.01$&quot;</span></span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $full_result</span></span>
+<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $full_result$Intercept</span></span>
+<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = 39.69$, 95% CI $[36.18, 43.19]$, $t(29) = 23.14$, $p &lt; .001$&quot;</span></span>
+<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $full_result$cyl</span></span>
+<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = -1.51$, 95% CI $[-2.36, -0.66]$, $t(29) = -3.64$, $p = .001$&quot;</span></span>
+<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $full_result$wt</span></span>
+<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$b = -3.19$, 95% CI $[-4.74, -1.64]$, $t(29) = -4.22$, $p &lt; .001$&quot;</span></span>
+<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-58"><a href="#cb24-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $full_result$modelfit</span></span>
+<span id="cb24-59"><a href="#cb24-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $full_result$modelfit$r2</span></span>
+<span id="cb24-60"><a href="#cb24-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$R^2 = .83$, $F(2, 29) = 70.91$, $p &lt; .001$&quot;</span></span>
+<span id="cb24-61"><a href="#cb24-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-62"><a href="#cb24-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $full_result$modelfit$aic</span></span>
+<span id="cb24-63"><a href="#cb24-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;$\\mathrm{AIC} = 156.01$&quot;</span></span>
+<span id="cb24-64"><a href="#cb24-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-65"><a href="#cb24-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-66"><a href="#cb24-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-67"><a href="#cb24-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $table</span></span>
+<span id="cb24-68"><a href="#cb24-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        term estimate std.error statistic p.value conf.low conf.high</span></span>
+<span id="cb24-69"><a href="#cb24-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Intercept    39.69      1.71     23.14  &lt; .001    36.18     43.19</span></span>
+<span id="cb24-70"><a href="#cb24-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       Cyl    -1.51      0.41     -3.64    .001    -2.36     -0.66</span></span>
+<span id="cb24-71"><a href="#cb24-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        Wt    -3.19      0.76     -4.22  &lt; .001    -4.74     -1.64</span></span>
+<span id="cb24-72"><a href="#cb24-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         conf.int</span></span>
+<span id="cb24-73"><a href="#cb24-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 [36.18, 43.19]</span></span>
+<span id="cb24-74"><a href="#cb24-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 [-2.36, -0.66]</span></span>
+<span id="cb24-75"><a href="#cb24-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 [-4.74, -1.64]</span></span>
+<span id="cb24-76"><a href="#cb24-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-77"><a href="#cb24-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
+<span id="cb24-78"><a href="#cb24-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;apa_results&quot; &quot;list&quot;</span></span></code></pre></div>
+</div>
+</div>
+<div id="user-interface" class="section level2">
+<h2>User interface</h2>
+<p>A final issue to consider is that users may pass inappropriate input
+to <code>apa_print()</code>. To ensure that we return correct output or
+informative error messages, we need input validation. Currently,
+<strong>papaja</strong> relies on the internal function
+<code>validate()</code> for this.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>in_paren <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>papaja<span class="sc">:::</span><span class="fu">validate</span>(in_paren, <span class="at">check_class =</span> <span class="st">&quot;logical&quot;</span>, <span class="at">check_length =</span> <span class="dv">1</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<p>Please use either <code>validate()</code> or perform input validation
+using the <a href="https://cran.r-project.org/package=assertthat"><strong>assertthat</strong></a>
+package.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

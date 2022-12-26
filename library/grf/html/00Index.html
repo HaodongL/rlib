@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head><title>R: Generalized Random Forests</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+<h1> Generalized Random Forests
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;grf&rsquo; version 2.2.0</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="average_late.html">average_late</a></td>
+<td>Average LATE (removed)</td></tr>
+<tr><td style="width: 25%;"><a href="average_partial_effect.html">average_partial_effect</a></td>
+<td>Average partial effect (removed)</td></tr>
+<tr><td style="width: 25%;"><a href="average_treatment_effect.html">average_treatment_effect</a></td>
+<td>Get doubly robust estimates of average treatment effects.</td></tr>
+<tr><td style="width: 25%;"><a href="best_linear_projection.html">best_linear_projection</a></td>
+<td>Estimate the best linear projection of a conditional average treatment effect.</td></tr>
+<tr><td style="width: 25%;"><a href="boosted_regression_forest.html">boosted_regression_forest</a></td>
+<td>Boosted regression forest</td></tr>
+<tr><td style="width: 25%;"><a href="causal_forest.html">causal_forest</a></td>
+<td>Causal forest</td></tr>
+<tr><td style="width: 25%;"><a href="causal_survival_forest.html">causal_survival_forest</a></td>
+<td>Causal survival forest</td></tr>
+<tr><td style="width: 25%;"><a href="custom_forest.html">custom_forest</a></td>
+<td>Custom forest (removed)</td></tr>
+<tr><td style="width: 25%;"><a href="generate_causal_data.html">generate_causal_data</a></td>
+<td>Generate causal forest data</td></tr>
+<tr><td style="width: 25%;"><a href="generate_causal_survival_data.html">generate_causal_survival_data</a></td>
+<td>Simulate causal survival data</td></tr>
+<tr><td style="width: 25%;"><a href="get_forest_weights.html">get_forest_weights</a></td>
+<td>Given a trained forest and test data, compute the kernel weights for each test point.</td></tr>
+<tr><td style="width: 25%;"><a href="get_leaf_node.html">get_leaf_node</a></td>
+<td>Find the leaf node for a test sample.</td></tr>
+<tr><td style="width: 25%;"><a href="get_sample_weights.html">get_sample_weights</a></td>
+<td>Retrieve forest weights (renamed to get_forest_weights)</td></tr>
+<tr><td style="width: 25%;"><a href="get_scores.html">get_scores</a></td>
+<td>Compute doubly robust scores for a GRF forest object</td></tr>
+<tr><td style="width: 25%;"><a href="get_scores.causal_forest.html">get_scores.causal_forest</a></td>
+<td>Compute doubly robust scores for a causal forest.</td></tr>
+<tr><td style="width: 25%;"><a href="get_scores.causal_survival_forest.html">get_scores.causal_survival_forest</a></td>
+<td>Compute doubly robust scores for a causal survival forest.</td></tr>
+<tr><td style="width: 25%;"><a href="get_scores.instrumental_forest.html">get_scores.instrumental_forest</a></td>
+<td>Doubly robust scores for estimating the average conditional local average treatment effect.</td></tr>
+<tr><td style="width: 25%;"><a href="get_scores.multi_arm_causal_forest.html">get_scores.multi_arm_causal_forest</a></td>
+<td>Compute doubly robust scores for a multi arm causal forest.</td></tr>
+<tr><td style="width: 25%;"><a href="get_tree.html">get_tree</a></td>
+<td>Retrieve a single tree from a trained forest object.</td></tr>
+<tr><td style="width: 25%;"><a href="instrumental_forest.html">instrumental_forest</a></td>
+<td>Intrumental forest</td></tr>
+<tr><td style="width: 25%;"><a href="ll_regression_forest.html">ll_regression_forest</a></td>
+<td>Local linear forest</td></tr>
+<tr><td style="width: 25%;"><a href="lm_forest.html">lm_forest</a></td>
+<td>LM Forest</td></tr>
+<tr><td style="width: 25%;"><a href="merge_forests.html">merge_forests</a></td>
+<td>Merges a list of forests that were grown using the same data into one large forest.</td></tr>
+<tr><td style="width: 25%;"><a href="multi_arm_causal_forest.html">multi_arm_causal_forest</a></td>
+<td>Multi-arm causal forest</td></tr>
+<tr><td style="width: 25%;"><a href="multi_regression_forest.html">multi_regression_forest</a></td>
+<td>Multi-task regression forest</td></tr>
+<tr><td style="width: 25%;"><a href="plot.grf_tree.html">plot.grf_tree</a></td>
+<td>Plot a GRF tree object.</td></tr>
+<tr><td style="width: 25%;"><a href="plot.rank_average_treatment_effect.html">plot.rank_average_treatment_effect</a></td>
+<td>Plot the Targeting Operator Characteristic curve.</td></tr>
+<tr><td style="width: 25%;"><a href="predict.boosted_regression_forest.html">predict.boosted_regression_forest</a></td>
+<td>Predict with a boosted regression forest.</td></tr>
+<tr><td style="width: 25%;"><a href="predict.causal_forest.html">predict.causal_forest</a></td>
+<td>Predict with a causal forest</td></tr>
+<tr><td style="width: 25%;"><a href="predict.causal_survival_forest.html">predict.causal_survival_forest</a></td>
+<td>Predict with a causal survival forest forest</td></tr>
+<tr><td style="width: 25%;"><a href="predict.instrumental_forest.html">predict.instrumental_forest</a></td>
+<td>Predict with an instrumental forest</td></tr>
+<tr><td style="width: 25%;"><a href="predict.ll_regression_forest.html">predict.ll_regression_forest</a></td>
+<td>Predict with a local linear forest</td></tr>
+<tr><td style="width: 25%;"><a href="predict.lm_forest.html">predict.lm_forest</a></td>
+<td>Predict with a lm forest</td></tr>
+<tr><td style="width: 25%;"><a href="predict.multi_arm_causal_forest.html">predict.multi_arm_causal_forest</a></td>
+<td>Predict with a multi arm causal forest</td></tr>
+<tr><td style="width: 25%;"><a href="predict.multi_regression_forest.html">predict.multi_regression_forest</a></td>
+<td>Predict with a multi regression forest</td></tr>
+<tr><td style="width: 25%;"><a href="predict.probability_forest.html">predict.probability_forest</a></td>
+<td>Predict with a probability forest</td></tr>
+<tr><td style="width: 25%;"><a href="predict.quantile_forest.html">predict.quantile_forest</a></td>
+<td>Predict with a quantile forest</td></tr>
+<tr><td style="width: 25%;"><a href="predict.regression_forest.html">predict.regression_forest</a></td>
+<td>Predict with a regression forest</td></tr>
+<tr><td style="width: 25%;"><a href="predict.survival_forest.html">predict.survival_forest</a></td>
+<td>Predict with a survival forest</td></tr>
+<tr><td style="width: 25%;"><a href="print.boosted_regression_forest.html">print.boosted_regression_forest</a></td>
+<td>Print a boosted regression forest</td></tr>
+<tr><td style="width: 25%;"><a href="print.grf.html">print.grf</a></td>
+<td>Print a GRF forest object.</td></tr>
+<tr><td style="width: 25%;"><a href="print.grf_tree.html">print.grf_tree</a></td>
+<td>Print a GRF tree object.</td></tr>
+<tr><td style="width: 25%;"><a href="print.rank_average_treatment_effect.html">print.rank_average_treatment_effect</a></td>
+<td>Print the Rank-Weighted Average Treatment Effect (RATE).</td></tr>
+<tr><td style="width: 25%;"><a href="print.tuning_output.html">print.tuning_output</a></td>
+<td>Print tuning output. Displays average error for q-quantiles of tuned parameters.</td></tr>
+<tr><td style="width: 25%;"><a href="probability_forest.html">probability_forest</a></td>
+<td>Probability forest</td></tr>
+<tr><td style="width: 25%;"><a href="quantile_forest.html">quantile_forest</a></td>
+<td>Quantile forest</td></tr>
+<tr><td style="width: 25%;"><a href="rank_average_treatment_effect.html">rank_average_treatment_effect</a></td>
+<td>Estimate a Rank-Weighted Average Treatment Effect (RATE).</td></tr>
+<tr><td style="width: 25%;"><a href="regression_forest.html">regression_forest</a></td>
+<td>Regression forest</td></tr>
+<tr><td style="width: 25%;"><a href="split_frequencies.html">split_frequencies</a></td>
+<td>Calculate which features the forest split on at each depth.</td></tr>
+<tr><td style="width: 25%;"><a href="survival_forest.html">survival_forest</a></td>
+<td>Survival forest</td></tr>
+<tr><td style="width: 25%;"><a href="test_calibration.html">test_calibration</a></td>
+<td>Omnibus evaluation of the quality of the random forest estimates via calibration.</td></tr>
+<tr><td style="width: 25%;"><a href="tune_causal_forest.html">tune_causal_forest</a></td>
+<td>Causal forest tuning (removed)</td></tr>
+<tr><td style="width: 25%;"><a href="tune_instrumental_forest.html">tune_instrumental_forest</a></td>
+<td>Instrumental forest tuning (removed)</td></tr>
+<tr><td style="width: 25%;"><a href="tune_regression_forest.html">tune_regression_forest</a></td>
+<td>Regression forest tuning (removed)</td></tr>
+<tr><td style="width: 25%;"><a href="variable_importance.html">variable_importance</a></td>
+<td>Calculate a simple measure of 'importance' for each feature.</td></tr>
+</table>
+</div></body></html>

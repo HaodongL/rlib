@@ -1,0 +1,5 @@
+importFrom(Matrix, sparseMatrix)
+importFrom(methods, as, is)
+
+useDynLib(sparsesvd, .registration = TRUE)
+export(sparsesvd)

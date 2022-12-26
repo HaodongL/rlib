@@ -1,0 +1,144 @@
+CV_lrnr_sl              Estimates cross-validated risk of the Super
+                        Learner
+Custom_chain            Customize chaining for a learner
+Lrnr_HarmonicReg        Harmonic Regression
+Lrnr_arima              Univariate ARIMA Models
+Lrnr_bartMachine        bartMachine: Bayesian Additive Regression Trees
+                        (BART)
+Lrnr_base               Base Class for all sl3 Learners
+Lrnr_bayesglm           Bayesian Generalized Linear Models
+Lrnr_bilstm             Bidirectional Long short-term memory Recurrent
+                        Neural Network (LSTM)
+Lrnr_bound              Bound Predictions
+Lrnr_caret              Wrapping Learner for Package Caret
+Lrnr_cv                 Fit/Predict a learner with Cross Validation
+Lrnr_cv_selector        Cross-Validated Selector
+Lrnr_dbarts             Discrete Bayesian Additive Regression Tree
+                        sampler
+Lrnr_define_interactions
+                        Define interactions terms
+Lrnr_density_discretize
+                        Density from Classification
+Lrnr_density_hse        Density Estimation With Mean Model and
+                        Homoscedastic Errors
+Lrnr_density_semiparametric
+                        Density Estimation With Mean Model and
+                        Homoscedastic Errors
+Lrnr_earth              Earth: Multivariate Adaptive Regression Splines
+Lrnr_expSmooth          Exponential Smoothing state space model
+Lrnr_ga                 Nonlinear Optimization via Genetic Algorithm
+                        (GA)
+Lrnr_gam                GAM: Generalized Additive Models
+Lrnr_gbm                GBM: Generalized Boosted Regression Models
+Lrnr_glm                Generalized Linear Models
+Lrnr_glm_fast           Computationally Efficient Generalized Linear
+                        Model (GLM) Fitting
+Lrnr_glmnet             GLMs with Elastic Net Regularization
+Lrnr_grf                Generalized Random Forests Learner
+Lrnr_gru_keras          Recurrent Neural Network with Gated Recurrent
+                        Unit (GRU) with Keras
+Lrnr_gts                Grouped Time-Series Forecasting
+Lrnr_h2o_grid           Grid Search Models with h2o
+Lrnr_hal9001            Scalable Highly Adaptive Lasso (HAL)
+Lrnr_haldensify         Conditional Density Estimation with the Highly
+                        Adaptive LASSO
+Lrnr_hts                Hierarchical Time-Series Forecasting
+Lrnr_independent_binomial
+                        Classification from Binomial Regression
+Lrnr_lightgbm           LightGBM: Light Gradient Boosting Machine
+Lrnr_lstm_keras         Long short-term memory Recurrent Neural Network
+                        (LSTM) with Keras
+Lrnr_mean               Fitting Intercept Models
+Lrnr_multiple_ts        Stratify univariable time-series learners by
+                        time-series
+Lrnr_multivariate       Multivariate Learner
+Lrnr_nnet               Feed-Forward Neural Networks and Multinomial
+                        Log-Linear Models
+Lrnr_nnls               Non-negative Linear Least Squares
+Lrnr_optim              Optimize Metalearner according to Loss Function
+                        using optim
+Lrnr_pca                Principal Component Analysis and Regression
+Lrnr_pkg_SuperLearner   Use SuperLearner Wrappers, Screeners, and
+                        Methods, in sl3
+Lrnr_polspline          Polyspline - multivariate adaptive polynomial
+                        spline regression (polymars) and polychotomous
+                        regression and multiple classification
+                        (polyclass)
+Lrnr_pooled_hazards     Classification from Pooled Hazards
+Lrnr_randomForest       Random Forests
+Lrnr_ranger             Ranger: Fast(er) Random Forests
+Lrnr_revere_task        Learner that chains into a revere task
+Lrnr_rpart              Learner for Recursive Partitioning and
+                        Regression Trees.
+Lrnr_rugarch            Univariate GARCH Models
+Lrnr_screener_augment   Augmented Covariate Screener
+Lrnr_screener_coefs     Coefficient Magnitude Screener
+Lrnr_screener_correlation
+                        Correlation Screening Procedures
+Lrnr_screener_importance
+                        Variable Importance Screener
+Lrnr_sl                 The Super Learner Algorithm
+Lrnr_solnp              Nonlinear Optimization via Augmented Lagrange
+Lrnr_solnp_density      Nonlinear Optimization via Augmented Lagrange
+Lrnr_stratified         Stratify learner fits by a single variable
+Lrnr_subset_covariates
+                        Learner with Covariate Subsetting
+Lrnr_svm                Support Vector Machines
+Lrnr_tsDyn              Nonlinear Time Series Analysis
+Lrnr_ts_weights         Time-specific weighting of prediction losses
+Lrnr_xgboost            xgboost: eXtreme Gradient Boosting
+Pipeline                Pipeline (chain) of learners.
+Shared_Data             Container Class for data.table Shared Between
+                        Tasks
+Stack                   Learner Stacking
+Variable_Type           Specify Variable Type
+args_to_list            Get all arguments of parent call (both
+                        specified and defaults) as list
+bsds                    Bicycle sharing time series dataset
+cpp                     Subset of growth data from the collaborative
+                        perinatal project (CPP)
+cpp_1yr                 Subset of growth data from the collaborative
+                        perinatal project (CPP)
+cv_risk                 Cross-validated Risk Estimation
+debug_train             Helper functions to debug sl3 Learners
+default_metalearner     Automatically Defined Metalearner
+define_h2o_X            h2o Model Definition
+delayed_make_learner    Learner helpers
+density_dat             Simulated data with continuous exposure
+factor_to_indicators    Convert Factors to indicators
+importance              Importance Extract variable importance measures
+                        produced by 'randomForest' and order in
+                        decreasing order of importance.
+importance_plot         Variable Importance Plot
+inverse_sample          Inverse CDF Sampling
+loss_functions          Loss Function Definitions
+make_learner_stack      Make a stack of sl3 learners
+metalearners            Combine predictions from multiple learners
+pack_predictions        Pack multidimensional predictions into a vector
+                        (and unpack again)
+pooled_hazard_task      Generate A Pooled Hazards Task from a Failure
+                        Time (or Categorical) Task
+predict_classes         Predict Class from Predicted Probabilities
+prediction_plot         Plot predicted and true values for diganostic
+                        purposes
+risk                    Risk Estimation
+risk_functions          FACTORY RISK FUNCTION FOR ROCR PERFORMANCE
+                        MEASURES WITH BINARY OUTCOMES
+safe_dim                dim that works for vectors too
+sl3Options              Querying/setting a single 'sl3' option
+sl3_Task                Define a Machine Learning Task
+sl3_list_properties     List sl3 Learners
+sl3_revere_Task         Revere (SplitSpecific) Task
+subset_folds            Make folds work on subset of data
+train_task              Subset Tasks for CV THe functions use origami
+                        folds to subset tasks. These functions are used
+                        by Lrnr_cv (and therefore other learners that
+                        use Lrnr_cv). So that nested cv works properly,
+                        currently the subsetted task objects do not
+                        have fold structures of their own, and so
+                        generate them from defaults if nested cv is
+                        requested.
+undocumented_learner    Undocumented Learner
+write_learner_template
+                        Generate a file containing a template 'sl3'
+                        Learner

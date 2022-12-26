@@ -1,0 +1,14 @@
+cluster_credentials     Get GHAP credentials provided to
+                        configure_cluster
+configure_cluster       Provide cluster credentials for use with
+                        run_on_cluster
+configure_dataset       configure dataset for use with longbow
+force_job_finish        Longbow Job API
+get_job_logs            Longbow Job API
+get_tl_data             Script helpers
+longbow_token           Get longbow token provided to configure_cluster
+params_from_rmd         Generate sample params object using defaults
+                        specified in Rmd file
+publish_template        Publish template to longbow UI
+run_on_longbow          Run template with parameters as specified and
+                        generate markdown output

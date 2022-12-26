@@ -1,0 +1,80 @@
+as_rtf_colheader        Create Column Header RTF Encode
+as_rtf_color            Create RTF Color Encode
+as_rtf_end              End RTF Encode
+as_rtf_font             Create RTF Font Encode
+as_rtf_footnote         Create Footnote RTF Encode
+as_rtf_init             Create RTF Header Encode
+as_rtf_margin           Create RTF Page Margin Encode
+as_rtf_new_page         Create RTF New Page Encode
+as_rtf_page             Create RTF Page Size Encode
+as_rtf_pageby           RTF Table Page By Encoding
+as_rtf_paragraph        Create Paragraph RTF Encode
+as_rtf_source           Create Data Source RTF Encode
+as_rtf_subline          Create Table Subline RTF Encode
+as_rtf_table            Combine RTF Table Encoding
+as_rtf_title            Create Table Title RTF Encode
+border_type             RTF Border Type Dictionary
+cell_size               Calculate Cell Size in Twips
+check_args              Check Argument Types, Length or Dimension
+color_table             RTF Text Color Dictionary
+convert                 Convert Symbol to ANSI and Unicode Encoding
+fig_format              RTF Text Format Dictionary
+font_format             RTF Text Format Dictionary
+font_type               RTF Text Font Dictionary
+footnote_source_space   Derive Space Adjustment
+inch_to_twip            Convert Inches to Twips
+justification           RTF Text Justification Dictionary
+match_arg               Argument Verification Using Partial Matching
+nrow_paragraph          Calculate Number of Rows for a Paragraph
+nrow_table              Calculate Number of Lines Broken to for Each
+                        Table Row
+obj_rtf_border          Create an RTF Table Border Object
+obj_rtf_text            Create an RTF Text Object
+r2rtf_HAMD17            An Efficacy Clinical Trial Data to Evaluate a
+                        Drug to Reduce Lower Back Pain
+r2rtf_adae              An Adverse Event Dataset
+r2rtf_adsl              A Subject Level Demographic Dataset
+r2rtf_tbl1              Within Group Results from an ANCOVA Model
+r2rtf_tbl2              Between Group Results from an ANCOVA Model
+r2rtf_tbl3              Root Mean Square Error from an ANCOVA model
+rtf_body                Add Table Body Attributes to the Table
+rtf_by_subline          Add Sublineby Attributes to Table
+rtf_colheader           Add Column Header Attributes to Table
+rtf_convert_format      Convert RTF file to Other Format
+rtf_encode              Render to RTF Encoding
+rtf_encode_figure       Render Figure to RTF Encoding
+rtf_encode_list         Render List to RTF Encoding
+rtf_encode_table        Render Table to RTF Encoding
+rtf_figure              Add Figure Attributes
+rtf_footnote            Add Footnote Attributes to Table
+rtf_group_by_enhance    Remove Duplicate Records
+rtf_nline_matrix        Calculate Number of Lines of a String Matrix
+rtf_nline_vector        Calculate Number of Lines of a String Vector
+rtf_nrow                Add Number of Row Attributes for a Table
+rtf_page                Add RTF File Page Information
+rtf_page_footer         Add RTF Page Footer Information
+rtf_page_header         Add RTF Page Header Information
+rtf_pageby              Add Pageby Attributes to Table
+rtf_paragraph           Paragraph to RTF Encode
+rtf_read_figure         Read Figures into Binary Files
+rtf_read_png            Read PNG Figures into Binary Files
+rtf_source              Add Data Source Attributes to the Table
+rtf_strwidth            Calculate String Width in Inches
+rtf_subline             Add Subline Attributes to Table
+rtf_subset              Pass Table Attributes to Subset Table
+rtf_table_content       Create RTF Table Body Encode
+rtf_text                Text to RTF Encode
+rtf_title               Add Title Attributes to Table
+set_margin              Define Margin Type
+spacing                 RTF Paragraph Spacing Dictionary
+unicode_latex           Dictionary of Unicode and Latex Code
+update_border_first     Update First Border Line Based on Page
+                        Information
+update_border_last      Update Last Border Line Based on Page
+                        Information
+utf8Tortf               Convert a UTF-8 Encoded Character String to a
+                        RTF Encoded String
+vertical_justification
+                        RTF Text Vertical Justification Dictionary
+write_rtf               Write an RTF Table or Figure to an RTF File
+write_rtf_para          Write a Paragraph to an RTF File

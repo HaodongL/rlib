@@ -1,0 +1,4 @@
+compute                 Compute the missing values to later impute them
+                        in another dataset
+impute                  Impute missing values with the median/mode or
+                        'randomForest'

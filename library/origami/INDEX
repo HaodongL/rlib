@@ -1,0 +1,14 @@
+combine_results         Combine Results from Different Folds
+combiners               Combiners
+cross_validate          Main Cross-Validation Function
+fold_from_foldvec       Build a Fold Object from a Fold Vector
+fold_funs               Cross-Validation Schemes
+fold_helpers            Fold Helpers
+folds2foldvec           Build a Fold Vector from a Fold Object
+guess_combiner          Flexible Guessing and Mapping for Combining
+                        Data Types
+id_folds_to_folds       Convert ID Folds to Observation Folds
+make_fold               Fold
+make_folds              Make List of Folds for cross-validation
+make_repeated_folds     Repeated Cross-Validation
+wrap_in_try             Wrap a Function in a Try Statement

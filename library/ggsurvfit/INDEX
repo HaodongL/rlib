@@ -1,0 +1,25 @@
+Surv_CNSR               Create a Survival Outcome from CDISC Data
+add_censor_mark         Add Censor Marking
+add_confidence_interval
+                        Add Confidence Interval
+add_legend_title        Add Legend Title
+add_pvalue              Add p-value
+add_quantile            Add Quantile Annotation
+add_risktable           Add risk table
+add_risktable_strata_symbol
+                        Use Symbol for Strata in Risk Table
+adtte                   Example phase III clinical trial data set
+df_colon                Formatted Copy of 'survival::colon'
+df_lung                 Formatted Copy of 'survival::lung'
+format_p                Format p-value
+ggcuminc                Plot Cumulative Incidence
+ggsurvfit               Plot Survival Probability
+ggsurvfit_build         Build 'ggsurvfit' Object
+scale_ggsurvfit         Apply Scales
+stepribbon              Step ribbon statistic
+survfit2                Create survival curves
+survfit2_p              Calculate p-value
+theme_ggsurvfit         Survfit Plot Themes
+theme_risktable         Risk Table Themes
+tidy_cuminc             Tidy a cuminc object
+tidy_survfit            Tidy a survfit object
